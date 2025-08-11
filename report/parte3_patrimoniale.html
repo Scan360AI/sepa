@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Patrimoniale - SEPA S.r.l. | SCAN V9</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+    <!-- Stili specifici eventuali -->
+</head>
+<body>
+
+<!-- Sidebar -->
+    <aside class="sidebar no-print">
+        <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>SEPA S.r.l.</h5> </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
+            <li class="nav-title">Analisi Dettagliata</li>
+            <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
+            <li class="nav-item"> <a class="nav-link active" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte5_circolante-flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
+            <li class="nav-title">Approfondimenti</li>
+            <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
+            <!-- Removed Bilancio Plus Link -->
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
+
+
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Report Dettagliato: Analisi Patrimoniale</h5>
+                <p class="mb-0">SEPA S.r.l. | <span class="report-date">11 Agosto 2025</span></p>
+            </div>
+            <div class="header-controls d-flex align-items-center">
+                <span id="irp-header-badge" class="badge me-3"></span> <!-- Badge IRP -->
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> SEPA S.r.l. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">SEPA S.r.l.</span></h1>
+            <p class="text-center mb-0">Report Dettagliato: Analisi Patrimoniale | <span class="report-date">11 Agosto 2025</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
+
+            <!-- ================================================================ -->
+            <!-- CONTENUTO SPECIFICO PARTE 3 - V9 - Updated for SEPA S.r.l. -->
+            <!-- ================================================================ -->
+
+            <h2 class="section-title" id="patrimonial-analysis"><i class="fas fa-landmark me-2"></i>ANALISI PATRIMONIALE</h2>
+
+         <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">3.1 Analisi Patrimoniale</h5></div>
+            <div class="card-body">
+                <p>L'analisi della struttura patrimoniale di SEPA S.r.l., azienda operante nel settore "Fabbricazione di prodotti di base per la copertura stradale" (ATECO 19.20.40), evidenzia un profilo di equilibrio patrimoniale adeguato, caratterizzato da una struttura finanziaria solida ma con alcune criticità nella gestione del capitale circolante, come dimostrato dai principali indicatori riportati nel Report Leanus.</p>
+
+                 <!-- Grafici Composizione Attivo e Passivo -->
+                 <div class="row mt-4">
+                     <div class="col-lg-6 mb-3 mb-lg-0">
+                         <h6 class="text-center small">Grafico 3.1: Composizione Impieghi 2024 (%)</h6>
+                         <div class="chart-container" style="height: 300px;">
+                             <canvas id="assetsChart"></canvas> <!-- ID for report_init.js -->
+                         </div>
+                     </div>
+                     <div class="col-lg-6">
+                          <h6 class="text-center small">Grafico 3.2: Composizione Fonti 2024 (%)</h6>
+                          <div class="chart-container" style="height: 300px;">
+                              <canvas id="liabilitiesChart"></canvas> <!-- ID for report_init.js -->
+                          </div>
+                     </div>
+                 </div>
+
+                <h6 class="mt-4">Quadro di sintesi patrimoniale</h6>
+                <p class="small">Secondo il Report Commentato Leanus, al 12/2024 la situazione patrimoniale dell'azienda presenta i seguenti elementi chiave:</p>
+                <ul class="small">
+                    <li><strong>Patrimonio Netto</strong>: €6.150.876</li>
+                    <li><strong>Posizione Finanziaria Netta (PFN)</strong>: €297.772 (indebitamento netto)</li>
+                    <li><strong>Liquidità</strong>: €32.016</li>
+                    <li><strong>Leanus Score</strong>: "5 - Negativo" con valore numerico pari a 0,70</li>
+                    <li><strong>Z-Score di Altman</strong>: 2,55</li>
+                    <li><strong>Probabilità di Default (MCC)</strong>: 8,45%, FASCIA "4"</li>
+                </ul>
+                <p class="small">La valutazione complessiva fornita da Leanus classifica l'azienda nella categoria "STUCK", indicando che "l'azienda presenta un significativo disequilibrio economico e patrimoniale che richiede interventi strutturali".</p>
+            </div>
+        </div>
+
+         <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">3.2 Stato Patrimoniale Riclassificato (triennio)</h5></div>
+            <div class="card-body">
+                 <!-- Updated Table Data for SEPA S.r.l. -->
+                 <div class="table-responsive">
+                     <table class="table table-sm table-striped table-hover">
+                         <thead class="table-light">
+                             <tr><th>Stato Patrimoniale (€)</th><th class="text-end">31/12/2022</th><th class="text-end">%</th><th class="text-end">31/12/2023</th><th class="text-end">%</th><th class="text-end">31/12/2024</th><th class="text-end">%</th></tr>
+                         </thead>
+                         <tbody>
+                             <tr class="fw-bold"><td>IMPIEGHI</td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td></tr>
+                             <tr><td>Attivo Fisso Netto</td><td class="text-end">7.594.706</td><td class="text-end">52,7%</td><td class="text-end">7.185.420</td><td class="text-end">49,2%</td><td class="text-end">7.078.746</td><td class="text-end">49,4%</td></tr>
+                             <tr><td>Immobilizzazioni materiali</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">1.525.399</td><td class="text-end">10,6%</td></tr>
+                             <tr><td>Immobilizzazioni immateriali</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">3.320</td><td class="text-end">0,0%</td></tr>
+                             <tr><td>Immobilizzazioni finanziarie</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">5.550.027</td><td class="text-end">38,7%</td></tr>
+                             <tr><td>Capitale Circolante</td><td class="text-end">6.815.099</td><td class="text-end">47,3%</td><td class="text-end">7.430.165</td><td class="text-end">50,8%</td><td class="text-end">7.250.035</td><td class="text-end">50,6%</td></tr>
+                             <tr><td>Magazzino</td><td class="text-end">32.457</td><td class="text-end">0,2%</td><td class="text-end">346.036</td><td class="text-end">2,4%</td><td class="text-end">552.778</td><td class="text-end">3,9%</td></tr>
+                             <tr><td>Crediti commerciali</td><td class="text-end">5.992.808</td><td class="text-end">41,6%</td><td class="text-end">6.549.124</td><td class="text-end">44,8%</td><td class="text-end">6.344.840</td><td class="text-end">44,3%</td></tr>
+                             <tr><td>Altri Crediti</td><td class="text-end">729.916</td><td class="text-end">5,1%</td><td class="text-end">489.881</td><td class="text-end">3,4%</td><td class="text-end">320.401</td><td class="text-end">2,2%</td></tr>
+                             <tr><td>Liquidità</td><td class="text-end">59.918</td><td class="text-end">0,4%</td><td class="text-end">45.124</td><td class="text-end">0,3%</td><td class="text-end">32.016</td><td class="text-end">0,2%</td></tr>
+                             <tr class="table-primary fw-bold"><td>Totale Attivo</td><td class="text-end">14.409.805</td><td class="text-end">100,0%</td><td class="text-end">14.615.585</td><td class="text-end">100,0%</td><td class="text-end">14.328.781</td><td class="text-end">100,0%</td></tr>
+                         </tbody>
+                         <tbody>
+                             <tr class="fw-bold"><td>FONTI</td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td></tr>
+                             <tr><td>Patrimonio Netto</td><td class="text-end">6.043.669</td><td class="text-end">41,9%</td><td class="text-end">6.128.459</td><td class="text-end">41,9%</td><td class="text-end">6.150.876</td><td class="text-end">42,9%</td></tr>
+                             <tr><td>Capitale sociale</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">400.000</td><td class="text-end">2,8%</td></tr>
+                             <tr><td>Riserve</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">5.728.463</td><td class="text-end">40,0%</td></tr>
+                             <tr><td>Utili portati a nuovo</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">0</td><td class="text-end">0,0%</td></tr>
+                             <tr><td>Utile d'esercizio</td><td class="text-end">182.477</td><td class="text-end">1,3%</td><td class="text-end">85.474</td><td class="text-end">0,6%</td><td class="text-end">22.413</td><td class="text-end">0,2%</td></tr>
+                             <tr><td>Passività consolidate</td><td class="text-end">530.945</td><td class="text-end">3,7%</td><td class="text-end">555.931</td><td class="text-end">3,8%</td><td class="text-end">544.166</td><td class="text-end">3,8%</td></tr>
+                             <tr><td>Debiti M/L termine</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">0</td><td class="text-end">0,0%</td></tr>
+                             <tr><td>Fondi</td><td class="text-end">530.945</td><td class="text-end">3,7%</td><td class="text-end">555.931</td><td class="text-end">3,8%</td><td class="text-end">544.166</td><td class="text-end">3,8%</td></tr>
+                             <tr><td>Passività correnti</td><td class="text-end">7.835.191</td><td class="text-end">54,4%</td><td class="text-end">7.931.195</td><td class="text-end">54,3%</td><td class="text-end">7.633.739</td><td class="text-end">53,3%</td></tr>
+                             <tr><td>Debiti Fornitori</td><td class="text-end">4.105.752</td><td class="text-end">28,5%</td><td class="text-end">3.741.431</td><td class="text-end">25,6%</td><td class="text-end">2.736.037</td><td class="text-end">19,1%</td></tr>
+                             <tr><td>Debiti finanziari BT</td><td class="text-end">378.375</td><td class="text-end">2,6%</td><td class="text-end">263.396</td><td class="text-end">1,8%</td><td class="text-end">329.788</td><td class="text-end">2,3%</td></tr>
+                             <tr><td>Altri Debiti</td><td class="text-end">3.351.064</td><td class="text-end">23,3%</td><td class="text-end">3.926.368</td><td class="text-end">26,9%</td><td class="text-end">4.567.914</td><td class="text-end">31,9%</td></tr>
+                             <tr class="table-primary fw-bold"><td>Totale Passivo</td><td class="text-end">14.409.805</td><td class="text-end">100,0%</td><td class="text-end">14.615.585</td><td class="text-end">100,0%</td><td class="text-end">14.328.781</td><td class="text-end">100,0%</td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 report-section">
+             <div class="card-header"><h5 class="mb-0">3.3 Struttura degli Investimenti</h5></div>
+             <div class="card-body">
+                 <h6 class="mt-1">Analisi della composizione degli investimenti</h6>
+                 <p class="small">Nel triennio 2022-2024, la struttura degli investimenti di SEPA S.r.l. mostra le seguenti caratteristiche:</p>
+                 <ul class="small">
+                    <li><strong>Attivo Fisso Netto</strong>: In leggera diminuzione, passando da €7.594.706 nel 2022 a €7.078.746 nel 2024, con un calo del 6,8%. L'incidenza sul totale attivo è rimasta relativamente stabile intorno al 49-53%.</li>
+                    <li><strong>Immobilizzazioni materiali</strong>: Al 2024 ammontano a €1.525.399, rappresentando il 21,5% delle immobilizzazioni totali.</li>
+                    <li><strong>Immobilizzazioni finanziarie</strong>: Pari a €5.550.027 nel 2024, costituiscono il 78,4% delle immobilizzazioni totali, principalmente rappresentate da partecipazioni in società controllate.</li>
+                    <li><strong>Capitale Circolante</strong>: Rappresenta una componente significativa dell'attivo (50,6% nel 2024), con un incremento rispetto al 2022 (47,3%).</li>
+                    <li><strong>Magazzino</strong>: In crescita significativa nel triennio, passando da €32.457 (2022) a €552.778 (2024), con un incremento del 1.603%.</li>
+                 </ul>
+                 
+                 <div class="row mt-4">
+                    <div class="col-lg-7 mb-3 mb-lg-0">
+                         <h6 class="text-center small">Grafico 3.3: Evoluzione Struttura Impieghi (€000)</h6>
+                         <div class="chart-container" style="height: 350px;">
+                             <canvas id="investmentsStructureChart"></canvas> <!-- ID for report_init.js -->
+                         </div>
+                    </div>
+                     <div class="col-lg-5">
+                         <h6 class="mt-1">Analisi Componenti chiave del Capitale Circolante:</h6>
+                         <ul class="small list-unstyled">
+                             <li class="mb-2"><span class="icon-circle icon-circle-sm bg-icon-success me-2"><i class="fas fa-file-invoice-dollar"></i></span><strong>Crediti Clienti:</strong> €6.344.840 (532 gg), tempi estremamente elevati rispetto ai benchmark di settore.</li>
+                             <li class="mb-2"><span class="icon-circle icon-circle-sm bg-icon-info me-2"><i class="fas fa-boxes"></i></span><strong>Rimanenze:</strong> €552.778 (95 gg), in aumento significativo nel triennio.</li>
+                             <li class="mb-2"><span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-file-invoice"></i></span><strong>Debiti Fornitori:</strong> €2.736.037 (326 gg), tempi di pagamento molto superiori ai benchmark.</li>
+                             <li class="mb-2"><span class="icon-circle icon-circle-sm bg-icon-danger me-2"><i class="fas fa-coins"></i></span><strong>Liquidità:</strong> €32.016 (0,74% dei ricavi), valore critico e in calo nel periodo.</li>
+                          </ul>
+                          
+                          <div class="alert alert-warning p-2 mt-3">
+                              <p class="small mb-0"><i class="fas fa-exclamation-triangle me-2"></i>L'analisi del circolante evidenzia un ciclo complessivo di 301 giorni (DSO + DIO - DPO), che indica un significativo assorbimento di risorse finanziarie nel capitale circolante, area di potenziale ottimizzazione.</p>
+                          </div>
+                     </div>
+                 </div>
+             </div>
+        </div>
+
+        <div class="card mb-4 report-section">
+             <div class="card-header"><h5 class="mb-0">3.4 Struttura delle Fonti</h5></div>
+              <div class="card-body">
+                 <h6 class="mt-1">Analisi della composizione delle fonti</h6>
+                 <p class="small">Nel triennio 2022-2024, la struttura delle fonti di finanziamento di SEPA S.r.l. presenta le seguenti caratteristiche:</p>
+                 <ul class="small">
+                    <li><strong>Patrimonio Netto</strong>: In lieve crescita, passando da €6.043.669 nel 2022 a €6.150.876 nel 2024, con un incremento dell'1,8%. La sua incidenza sul totale delle fonti è aumentata dal 41,9% al 42,9%.</li>
+                    <li><strong>Capitale Sociale</strong>: Stabile a €400.000, rappresentando il 2,8% del totale passivo.</li>
+                    <li><strong>Riserve</strong>: Ammontano a €5.728.463, costituendo il 93,1% del patrimonio netto.</li>
+                    <li><strong>Posizione Finanziaria Netta</strong>: Pari a €297.772 nel 2024, con un rapporto PFN/EBITDA di 0,35, estremamente sostenibile.</li>
+                    <li><strong>Debiti finanziari</strong>: Totali €329.788 nel 2024, interamente a breve termine, evidenziando uno squilibrio temporale.</li>
+                 </ul>
+                 
+                 <div class="row">
+                    <div class="col-lg-6 mb-3 mb-lg-0">
+                         <h6 class="text-center small">Grafico 3.4: Evoluzione Fonti 2022-2024 (%)</h6>
+                         <div class="chart-container" style="height: 300px;">
+                             <canvas id="equityCompositionChart"></canvas> <!-- ID for report_init.js -->
+                         </div>
+                         <h6 class="mt-3">Evoluzione dell'equilibrio delle fonti:</h6>
+                          <ul class="small list-unstyled">
+                             <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Elevata autonomia finanziaria</strong>: L'incidenza del patrimonio netto sul totale delle fonti (42,9%) è significativamente superiore ai benchmark ottimali.</li>
+                             <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Bassa leva finanziaria</strong>: Il rapporto D/E pari a 0,05 indica una limitatissima dipendenza dal debito.</li>
+                             <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Utile in contrazione</strong>: Significativa riduzione dell'utile netto da €182.477 nel 2022 a €22.413 nel 2024 (-87,7%).</li>
+                          </ul>
+                    </div>
+                     <div class="col-lg-6">
+                        <h6 class="text-center small">Grafico 3.5: Evoluzione Debiti Finanziari e PFN (€000)</h6>
+<div class="chart-container" style="height: 300px;">
+    <canvas id="financialDebtChart"></canvas>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('financialDebtChart').getContext('2d');
+        
+        // Dati per il grafico
+        const data = {
+            labels: ["2022", "2023", "2024"],
+            datasets: [
+                { 
+                    label: "Debiti Finanziari", 
+                    data: [378.375, 263.396, 329.788], 
+                    backgroundColor: "rgba(220, 53, 69, 0.7)",
+                    type: "bar",
+                    yAxisID: 'y'
+                },
+                { 
+                    label: "Liquidità", 
+                    data: [59.918, 45.124, 32.016], 
+                    backgroundColor: "rgba(34, 139, 34, 0.7)",
+                    type: "bar",
+                    yAxisID: 'y'
+                },
+                { 
+                    label: "PFN", 
+                    data: [318.457, 218.272, 297.772], 
+                    type: "line",
+                    borderColor: "rgba(255, 140, 0, 1)",
+                    backgroundColor: "transparent",
+                    yAxisID: 'y',
+                    borderWidth: 2,
+                    pointBackgroundColor: "rgba(255, 140, 0, 1)",
+                    fill: false
+                }
+            ]
+        };
+        
+        // Opzioni per il grafico
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: { weight: 'bold', size: 13 },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                    cornerRadius: 4,
+                    displayColors: true,
+                    boxPadding: 4,
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) label += ': ';
+                            let value = context.parsed.y;
+                            return label + '€' + value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 11 } }
+                },
+                y: {
+                    grid: { color: '#e0e0e0', borderDash: [2, 3] },
+                    ticks: { 
+                        font: { size: 11 },
+                        callback: function(value) {
+                            return '€' + (value/1000).toFixed(0) + 'K';
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Valori in €000',
+                        font: { size: 10 }
+                    }
+                }
+            },
+            animation: { duration: 400 }
+        };
+        
+        // Creazione del grafico
+        new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    });
+</script>
+                          <h6 class="mt-3">Costo del capitale e del debito:</h6>
+                           <ul class="small list-unstyled">
+                              <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Oneri Finanziari</strong>: €187.002 (4,35% dei Ricavi), con un costo medio del debito del 56,70%, estremamente elevato.</li>
+                              <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Rendimento del Capitale Proprio (ROE)</strong>: 0,36% nel 2024, in forte contrazione rispetto al 3,02% del 2022.</li>
+                              <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Rendimento del Capitale Investito (ROI)</strong>: 8,72% nel 2024, valore positivo che indica buona efficienza operativa.</li>
+                           </ul>
+                     </div>
+                 </div>
+              </div>
+        </div>
+
+        <div class="card mb-4 report-section">
+             <div class="card-header"><h5 class="mb-0">3.5 Posizione Finanziaria Netta</h5></div>
+             <div class="card-body">
+                 <h6 class="mt-1">Evoluzione della PFN</h6>
+                 <p class="small">La Posizione Finanziaria Netta di SEPA S.r.l. presenta un indebitamento netto contenuto nel triennio:</p>
+                 
+                 <div class="row">
+                    <div class="col-lg-7 mb-3 mb-lg-0">
+                         <h6 class="mt-1">Tabella 3.5: Analisi PFN 2022-2024 (€)</h6>
+                         <!-- Updated Table Data for SEPA S.r.l. -->
+                         <div class="table-responsive">
+                             <table class="table table-sm table-striped table-hover">
+                                 <thead>
+                                     <tr><th>Componenti PFN (€)</th><th class="text-end">31/12/2022</th><th class="text-end">31/12/2023</th><th class="text-end">31/12/2024</th></tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr><td>Debiti finanziari M/L Termine</td><td class="text-end">0</td><td class="text-end">0</td><td class="text-end">0</td></tr>
+                                     <tr><td>Debiti finanziari Breve Termine</td><td class="text-end">378.375</td><td class="text-end">263.396</td><td class="text-end">329.788</td></tr>
+                                     <tr><td>Totale Debiti Finanziari</td><td class="text-end">378.375</td><td class="text-end">263.396</td><td class="text-end">329.788</td></tr>
+                                     <tr><td>Liquidità</td><td class="text-end">(59.918)</td><td class="text-end">(45.124)</td><td class="text-end">(32.016)</td></tr>
+                                     <tr class="fw-bold"><td>PFN</td><td class="text-end">318.457</td><td class="text-end">218.272</td><td class="text-end">297.772</td></tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                         
+                         <h6 class="mt-4">Indicatori di sostenibilità del debito</h6>
+                         <p class="small">Il Report fornisce i seguenti indicatori chiave per valutare la sostenibilità del debito:</p>
+                         <ul class="small">
+                            <li><strong>PFN/EBITDA</strong>: 0,35, valore eccellente (soglia critica >3,0).</li>
+                            <li><strong>PFN/Patrimonio Netto</strong>: 0,05, indicando un indebitamento netto pari a solo 0,05 volte il patrimonio netto.</li>
+                            <li><strong>EBIT/Oneri Finanziari</strong>: 3,01, indicando una sufficiente capacità di copertura degli oneri finanziari.</li>
+                            <li><strong>Debt-to-Equity ratio (Leva Finanziaria)</strong>: 0,05, valore estremamente basso che segnala limitatissima dipendenza dal debito.</li>
+                         </ul>
+                    </div>
+                     <div class="col-lg-5">
+                         <h6 class="text-center small">Grafico 3.6: Evoluzione PFN 2022-2024</h6>
+                          <div class="chart-container" style="height: 300px;">
+                             <canvas id="pfnTrendChart"></canvas>
+                         </div>
+                         <h6 class="mt-3">Indicatori di Solidità:</h6>
+                         <ul class="small list-unstyled">
+                             <li class="mb-2"><i class="fas fa-check-circle text-success me-1"></i> <strong>PFN</strong>: €297.772 - indebitamento netto contenuto</li>
+                             <li class="mb-2"><i class="fas fa-check-circle text-success me-1"></i> <strong>Leva Finanziaria (D/E)</strong>: 0,05 - eccellente (target <1,5)</li>
+                             <li class="mb-2"><i class="fas fa-times-circle text-danger me-1"></i> <strong>Turnover</strong>: 0,67 - insufficiente</li>
+                             <li class="mb-2"><i class="fas fa-check-circle text-success me-1"></i> <strong>DSCR</strong>: 1,396 - adeguato (soglia minima: 1,0)</li>
+                             <li class="mb-2"><i class="fas fa-times-circle text-danger me-1"></i> <strong>Liquidità/Ricavi</strong>: 0,74% - critica</li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">3.6 Indici di Solidità Patrimoniale</h5></div>
+             <div class="card-body">
+                 <div class="table-responsive">
+                     <table class="table table-sm table-striped table-hover">
+                         <thead class="table-light"><tr><th>Indice</th><th>Formula</th><th class="text-end">31/12/2022</th><th class="text-end">31/12/2023</th><th class="text-end">31/12/2024</th><th>Valutazione</th></tr></thead>
+                         <tbody>
+                             <tr><td>Indice di Copertura delle Immobilizzazioni</td><td>PN / Immobilizzazioni</td><td class="text-end">0,80</td><td class="text-end">0,85</td><td class="text-end">0,87</td><td><span class="status-badge bg-success">Buono</span></td></tr>
+                             <tr><td>Leva Finanziaria (D/E)</td><td>Debiti Finanziari / PN</td><td class="text-end">0,06</td><td class="text-end">0,04</td><td class="text-end">0,05</td><td><span class="status-badge bg-success">Ottima</span></td></tr>
+                             <tr><td>Autonomia Finanziaria</td><td>PN / Totale Passivo</td><td class="text-end">41,9%</td><td class="text-end">41,9%</td><td class="text-end">42,9%</td><td><span class="status-badge bg-success">Ottima</span></td></tr>
+                             <tr><td>PFN/EBITDA</td><td>PFN / EBITDA</td><td class="text-end">0,38</td><td class="text-end">0,29</td><td class="text-end">0,35</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                             <tr><td>ROI</td><td>EBIT / CIN</td><td class="text-end">4,25%</td><td class="text-end">5,81%</td><td class="text-end">8,72%</td><td><span class="status-badge bg-success">Buono</span></td></tr>
+                             <tr><td>Turnover</td><td>Ricavi / CIN</td><td class="text-end">0,95</td><td class="text-end">0,78</td><td class="text-end">0,67</td><td><span class="status-badge bg-danger">Insufficiente</span></td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+                 
+                 <h6 class="mt-3">Interpretazione degli Indici</h6>
+                 <div class="row mt-3 small">
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>Indice di Copertura delle Immobilizzazioni (0,87):</strong> Valore buono, superiore alla soglia critica di 0,7. Il patrimonio netto copre l'87% delle immobilizzazioni.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>Leva Finanziaria (0,05):</strong> Valore eccellente che indica limitatissima dipendenza dal debito finanziario, significativamente inferiore al benchmark ottimale di 1,5.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>Autonomia Finanziaria (42,9%):</strong> Significativamente sopra la soglia del 30%, indica ottima capitalizzazione e indipendenza finanziaria.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>PFN/EBITDA (0,35):</strong> Valore eccellente, ben al di sotto della soglia critica di 3,0.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>ROI (8,72%):</strong> Valore buono che indica adeguata redditività del capitale investito.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-times text-danger me-1"></i><strong>Turnover (0,67):</strong> Insufficiente efficienza nell'utilizzo del capitale, con capacità di generare ricavi inferiore al capitale investito.</div>
+                 </div>
+             </div>
+        </div>
+
+        <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">3.7 Punti di Forza e Debolezza con Proposte di Miglioramento</h5></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-hover">
+                        <thead class="table-light">
+                            <tr><th>Situazione attuale</th><th>Azione suggerita</th><th>Effetti previsti</th><th>Impatto quantitativo/costo</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Liquidità critica</strong> (€32.016, -29,1%)</td>
+                                <td>Implementazione di un sistema strutturato di credit management e ricorso selettivo al factoring pro-soluto</td>
+                                <td>Incremento della liquidità disponibile e riduzione del rischio di insolvenza</td>
+                                <td>Incremento della liquidità stimato: +€300.000 / Costo implementazione: €25.000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tempi di incasso patologici</strong> (532 giorni)</td>
+                                <td>Revisione delle politiche commerciali con introduzione di meccanismi premiali per pagamenti anticipati e penali per ritardi</td>
+                                <td>Riduzione dei giorni medi di incasso e miglioramento del ciclo del circolante</td>
+                                <td>Riduzione DSO stimata: -180 giorni / Miglioramento CCN: +€1.500.000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Indebitamento esclusivamente a breve termine</strong></td>
+                                <td>Ristrutturazione del debito con trasformazione di una quota in finanziamenti a medio-lungo termine</td>
+                                <td>Miglioramento della correlazione temporale fonti-impieghi e riduzione del rischio di liquidità</td>
+                                <td>Riallocazione del debito: €250.000 / Costo ristrutturazione: €10.000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Incremento delle rimanenze</strong> (+59,7%)</td>
+                                <td>Implementazione di un sistema di inventory management basato su modelli predittivi e introduzione di KPI specifici</td>
+                                <td>Ottimizzazione delle scorte e riduzione del capitale immobilizzato in magazzino</td>
+                                <td>Riduzione delle rimanenze stimata: -30% (circa €165.000) / Costo implementazione: €20.000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sottoutilizzo della leva finanziaria</strong> (D/E: 0,05)</td>
+                                <td>Valutazione di un incremento selettivo dell'indebitamento per finanziare investimenti strategici ad alto rendimento</td>
+                                <td>Ottimizzazione della struttura del capitale e miglioramento del ROE</td>
+                                <td>Incremento ROE stimato: +1,5% / Costo finanziario incrementale: €30.000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Oneri finanziari sproporzionati</strong> (56,70% dei debiti)</td>
+                                <td>Analisi dettagliata degli oneri finanziari e rinegoziazione delle condizioni</td>
+                                <td>Riduzione del costo del debito e miglioramento della redditività netta</td>
+                                <td>Risparmio stimato: €120.000 / Costo consulenza: €15.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card summary-card mb-4 report-section">
+             <div class="card-body">
+                 <h5 class="card-title"><i class="fas fa-check-circle text-primary me-2"></i>3.8 Conclusioni sull'Analisi Patrimoniale</h5>
+                 
+                 <p>L'analisi patrimoniale di SEPA S.r.l. evidenzia una struttura con fondamentali sostanzialmente equilibrati ma con alcune aree di rischio che richiedono interventi mirati. L'azienda presenta un'adeguata patrimonializzazione e un limitatissimo ricorso all'indebitamento finanziario. Gli indici di solidità patrimoniale confermano un buon livello di autonomia finanziaria e una generalmente corretta correlazione tra fonti e impieghi.</p>
+                 
+                 <p>I principali punti di forza includono l'eccellente rapporto PFN/EBITDA (0,35), l'ottima autonomia finanziaria (42,9%) e la leva finanziaria estremamente contenuta (0,05). Tuttavia, emergono criticità significative nella liquidità (€32.016, pari allo 0,74% dei ricavi), nel ciclo del circolante (301 giorni) e nel costo anomalo del debito (56,70%).</p>
+                 
+                 <p>Le aree di intervento prioritario riguardano la gestione del capitale circolante, in particolare per quanto riguarda i tempi di incasso dei crediti commerciali (532 giorni), l'incremento della liquidità disponibile e la riequilibrazione della struttura temporale delle fonti di finanziamento.</p>
+                 
+                 <p class="mb-0">Si evidenzia inoltre un paradosso gestionale: a fronte di una eccellente marginalità operativa (EBITDA/Ricavi: 19,99%) e di un ottimo profilo di rischio finanziario (PFN/EBITDA: 0,35), l'azienda presenta una redditività del capitale proprio estremamente contenuta (ROE: 0,36%). Questo disallineamento segnala potenziali inefficienze nella gestione complessiva del capitale investito e nella trasmissione della marginalità operativa alla redditività netta.</p>
+             </div>
+         </div>
+
+            <!-- ================================================================ -->
+            <!-- FINE CONTENUTO SPECIFICO PARTE 3 -->
+            <!-- ================================================================ -->
+
+        </div> <!-- /dashboard-container -->
+
+        <!-- Footer Standard V2 (Nessuna modifica necessaria) -->
+        <footer class="footer no-print"> <div class="container-fluid px-4"> <div class="row align-items-center"> <div class="col-md-6 text-center text-md-start mb-2 mb-md-0"> SCAN360 © <span id="currentYearFooterReport"></span> </div> <div class="col-md-6 text-center text-md-end"> Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a> <img src="../assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2"> </div> </div> </div> </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/charts_config.js"></script>
+    <script src="../js/report_init.js"></script>
+     <script>
+        document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+        document.getElementById('currentYearFooterReport').textContent = new Date().getFullYear();
+
+         // Script aggiornamento badge IRP header (Updated for SEPA S.r.l.)
+         document.addEventListener('DOMContentLoaded', function() {
+             const irpScoreValue = 55.87; // IRP Value for SEPA S.r.l.
+             const irpHeaderBadge = document.getElementById('irp-header-badge');
+             if(irpHeaderBadge) {
+                 let badgeClass = 'bg-warning'; // Medio rischio
+                 if (irpScoreValue >= 71) badgeClass = 'bg-success'; // Basso
+                 else if (irpScoreValue < 51) badgeClass = 'bg-danger'; // Alto
+                 irpHeaderBadge.className = `badge ${badgeClass} me-3`;
+                 irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
+             }
+
+              // Ensure logout function is defined
+             if (typeof logout !== 'function') {
+                 window.logout = function() {
+                    console.log("Logout action triggered (placeholder)");
+                }
+             }
+             // Ensure print function is defined
+             if (typeof printDocument !== 'function') {
+                window.printDocument = function() {
+                    window.print();
+                }
+             }
+         });
+    </script>
+    
+    <!-- Grafici aggiornati per SEPA S.r.l. -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Grafico 3.1: Composizione Impieghi 2024 (%)
+        const ctxAssets = document.getElementById('assetsChart').getContext('2d');
+        new Chart(ctxAssets, {
+            type: 'pie',
+            data: {
+                labels: ['Immobilizzazioni materiali', 'Immobilizzazioni immateriali', 'Immobilizzazioni finanziarie', 'Magazzino', 'Crediti commerciali', 'Altri Crediti', 'Liquidità'],
+                datasets: [{
+                    data: [10.6, 0.0, 38.7, 3.9, 44.3, 2.2, 0.2],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(255, 159, 64, 0.7)',
+                        'rgba(34, 139, 34, 0.7)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Grafico 3.2: Composizione Fonti 2024 (%)
+        const ctxLiabilities = document.getElementById('liabilitiesChart').getContext('2d');
+        new Chart(ctxLiabilities, {
+            type: 'pie',
+            data: {
+                labels: ['Patrimonio Netto', 'Fondi', 'Debiti Fornitori', 'Debiti finanziari BT', 'Altri Debiti'],
+                datasets: [{
+                    data: [42.9, 3.8, 19.1, 2.3, 31.9],
+                    backgroundColor: [
+                        'rgba(34, 139, 34, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(255, 159, 64, 0.7)',
+                        'rgba(153, 102, 255, 0.7)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Grafico 3.3: Evoluzione Struttura Impieghi (€000)
+        const ctxInvestments = document.getElementById('investmentsStructureChart').getContext('2d');
+        new Chart(ctxInvestments, {
+            type: 'bar',
+            data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'Attivo Fisso Netto',
+                        data: [7594.706, 7185.420, 7078.746],
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Magazzino',
+                        data: [32.457, 346.036, 552.778],
+                        backgroundColor: 'rgba(255, 206, 86, 0.7)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Crediti commerciali',
+                        data: [5992.808, 6549.124, 6344.840],
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Altri Crediti',
+                        data: [729.916, 489.881, 320.401],
+                        backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Liquidità',
+                        data: [59.918, 45.124, 32.016],
+                        backgroundColor: 'rgba(34, 139, 34, 0.7)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: {
+                        stacked: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '€' + value + 'K';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Valori in €000',
+                            font: { size: 10 }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': €' + context.raw.toFixed(3) + 'K';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Grafico 3.4: Evoluzione Fonti 2022-2024 (%)
+        const ctxEquity = document.getElementById('equityCompositionChart').getContext('2d');
+        new Chart(ctxEquity, {
+            type: 'bar',
+            data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'Patrimonio Netto',
+                        data: [41.9, 41.9, 42.9],
+                        backgroundColor: 'rgba(34, 139, 34, 0.7)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Passività consolidate',
+                        data: [3.7, 3.8, 3.8],
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Debiti Fornitori',
+                        data: [28.5, 25.6, 19.1],
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Debiti finanziari BT',
+                        data: [2.6, 1.8, 2.3],
+                        backgroundColor: 'rgba(255, 159, 64, 0.7)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Altri Debiti',
+                        data: [23.3, 26.9, 31.9],
+                        backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: {
+                        stacked: true,
+                        min: 0,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Grafico 3.6: Evoluzione PFN 2022-2024
+        const ctxPfn = document.getElementById('pfnTrendChart').getContext('2d');
+        new Chart(ctxPfn, {
+            type: 'line',
+            data: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [
+                    {
+                        label: 'PFN',
+                        data: [318.457, 218.272, 297.772],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'PFN/EBITDA',
+                        data: [0.38, 0.29, 0.35],
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.4,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'PFN (€000)',
+                            font: { size: 10 }
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return '€' + value + 'K';
+                            }
+                        }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: { drawOnChartArea: false },
+                        title: {
+                            display: true,
+                            text: 'PFN/EBITDA',
+                            font: { size: 10 }
+                        },
+                        min: 0,
+                        max: 1,
+                        ticks: { stepSize: 0.2 }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataset.label === 'PFN') {
+                                    return context.dataset.label + ': €' + context.raw.toFixed(3) + 'K';
+                                } else {
+                                    return context.dataset.label + ': ' + context.raw.toFixed(2) + 'x';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+    </script>
+    <scan-chat data-bot-id="aa6ba51a-dad9-41aa-ab1d-468e220feb57"></scan-chat>
+    <script src="../js/bundle.js"></script>
+</body>
+</html>

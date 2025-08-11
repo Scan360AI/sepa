@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bancabilità e Sostenibilità Debito - SEPA S.r.l. | SCAN V11</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+     <style>
+        /* Stili IRP V6/V7 */
+        .irp-visual-section { background: linear-gradient(135deg, var(--white) 0%, #f0f4f8 100%); border-radius: 12px; padding: 2rem; box-shadow: var(--shadow); margin-bottom: 2.5rem; border: 1px solid var(--card-border); }
+        .irp-main-title { color: var(--primary); font-weight: 700; margin-bottom: 1.5rem; border-bottom: 2px solid var(--secondary); padding-bottom: 0.8rem; }
+        .irp-gradient-bar-container { margin-bottom: 0.5rem; }
+        .irp-gradient-bar { height: 20px; border-radius: 10px; overflow: hidden; position: relative; background: linear-gradient(to right, #d62246 0%, #d98c00 35%, #ffc107 55%, #4CAF50 80%, #191970 100%); border: 1px solid #bdc3c7; }
+        .irp-marker { position: absolute; top: -5px; bottom: -5px; width: 6px; background-color: #ffffff; border: 2px solid #343a40; transform: translateX(-50%); box-shadow: 0 0 8px rgba(0,0,0,0.5); z-index: 2; border-radius: 3px; }
+        .irp-marker::after { content: ''; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 8px solid #343a40; }
+        .irp-scale-labels { font-size: 0.8rem; color: #6c757d; font-weight: 500; padding: 0 5px;}
+        .irp-score-circle { width: 140px; height: 140px; border-radius: 50%; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 0.5rem auto; box-shadow: 0 8px 20px rgba(0,0,0,0.25); background: var(--warning); border: 6px solid rgba(255, 255, 255, 0.5); }
+        .irp-score-circle.risk-low { background: radial-gradient(circle, #6bc571, #4CAF50); }
+        .irp-score-circle.risk-medium { background: radial-gradient(circle, #ffd54f, #FFC107); }
+        .irp-score-circle.risk-high { background: radial-gradient(circle, #f6685e, #F44336); }
+        .irp-score-value { font-size: 3.5rem; font-weight: 700; line-height: 1; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);}
+        .irp-score-max { font-size: 0.9rem; opacity: 0.8; display: block; line-height: 1;}
+        .irp-category-text { font-size: 1.2rem; font-weight: 600; margin-top: 0.5rem; text-align: center; }
+        .irp-category-text .status-badge { font-size: 0.85rem; vertical-align: middle; margin-left: 8px;}
+        .other-ratings { font-size: 0.85rem; } .other-ratings strong { color: var(--dark); } .other-ratings .badge { margin-left: 5px; }
+        .stable-badge { background-color: var(--warning); color: var(--dark); border-radius: 8px; padding: 3px 8px; font-weight: 600; font-size: 0.8rem;} /* Adjusted name and color */
+        /* Stili Matching Card */
+        .matching-card { margin-bottom: 1rem; border-left-width: 4px; }
+        .matching-card-header { font-weight: 600; display: flex; align-items: center;}
+        .matching-card-header i { margin-right: 8px;}
+        .matching-card.adequate { border-left-color: var(--warning); }
+        .matching-card.good { border-left-color: var(--success); }
+        .matching-card.optimal { border-left-color: var(--primary); } /* Optimal changed to Primary color */
+        .matching-card.excellent { border-left-color: var(--success); } /* Added Excellent style */
+         /* Altri stili V9/V11 */
+         :root {
+            --primary: #191970; --secondary: #4a69bd; --success: #4CAF50;
+            --warning: #FFC107; --danger: #F44336; --info: #0dcaf0;
+            --light: #f8f9fa; --dark: #343a40; --white: #ffffff;
+            --text-primary: #212529; --text-secondary: #6c757d;
+            --card-bg: var(--white); --card-border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        html, body { height: 100%; overflow-x: hidden; font-family: 'Titillium Web', sans-serif; background-color: #f4f8fb; }
+        body { display: flex; }
+        .sidebar { width: 250px; background-color: var(--primary); color: #e0e0e0; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1031; display: flex; flex-direction: column; box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); transition: width 0.3s ease; overflow-y: auto; }
+        .main-wrapper { margin-left: 250px; width: calc(100% - 250px); display: flex; flex-direction: column; min-height: 100vh; position: relative; padding-top: 70px; }
+        .dashboard-header { background-color: var(--white); padding: 15px 30px; border-bottom: 1px solid var(--card-border); box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-height: 70px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 250px; right: 0; z-index: 1030; }
+        .dashboard-container { padding: 30px; flex-grow: 1; width: 100%; }
+        .footer { background-color: var(--primary); color: rgba(255, 255, 255, 0.7); padding: 15px 30px; font-size: 0.85rem; margin-top: auto; flex-shrink: 0; width: 100%; }
+        .footer img { max-height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.8; vertical-align: middle;}
+        .sidebar-header { padding: 10px 20px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .sidebar-header img { max-height: 40px; } .sidebar-header h5 { color: var(--white); margin-top: 10px; font-size: 1.1rem; font-weight: 600; }
+        .sidebar-nav { list-style: none; padding: 0; } .sidebar-nav .nav-item { margin: 0; }
+        .sidebar-nav .nav-link { color: #e0e0e0; padding: 12px 20px; display: flex; align-items: center; font-size: 0.95rem; font-weight: 500; border-left: 4px solid transparent; transition: all 0.2s ease; }
+        .sidebar-nav .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); color: var(--white); border-left-color: var(--warning); }
+        .sidebar-nav .nav-link.active { background-color: rgba(255, 255, 255, 0.1); color: var(--white); font-weight: 600; border-left-color: var(--white); }
+        .sidebar-nav .nav-link i { margin-right: 15px; width: 20px; text-align: center; font-size: 1rem; }
+        .sidebar-nav .nav-title { padding: 10px 20px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; }
+        .sidebar-footer { margin-top: auto; padding: 15px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; text-align: left; }
+        .section-title { color: var(--primary); font-weight: 600; margin-top: 2.5rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--secondary); font-size: 1.75rem; display: flex; align-items: center; } .section-title i { margin-right: 10px; }
+        .dashboard-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); transition: all 0.3s ease; height: 100%; }
+        .dashboard-card:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .card-title-small { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .table { border: 1px solid var(--card-border); margin-bottom: 1rem; } .table thead th { background-color: var(--light); color: var(--primary); font-weight: 600; border-bottom: 2px solid var(--primary); font-size: 0.9rem; white-space: nowrap; } .table-hover tbody tr:hover { background-color: #eef2f7; } .table td, .table th { vertical-align: middle; padding: 0.6rem 0.75rem; font-size: 0.9rem;} .value-highlight { font-weight: 600; color: var(--primary); } .text-end { text-align: right !important;} .text-success { color: var(--success) !important; } .text-danger { color: var(--danger) !important; } .text-warning { color: var(--warning) !important; } .text-secondary { color: var(--text-secondary) !important; }
+        .alert-box { padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid; } .alert-box h5 { margin-bottom: 10px; font-size: 1.1rem; font-weight: 600;} .alert-box ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem;} .alert-box.alert-success { background-color: #d1e7dd; border-color: #a3cfbb; color: #0a3622; } .alert-box.alert-warning { background-color: #fff3cd; border-color: #ffda6a; color: #664d03; } .alert-box.alert-danger { background-color: #f8d7da; border-color: #f1aeb5; color: #58151c; } .alert-box.alert-info { background-color: #cff4fc; border-color: #9eeaf9; color: #055160; }
+        .status-badge { font-size: .75em; font-weight: 700; line-height: 1; padding: .35em .65em; border-radius: .375rem; color: white; display: inline-block; } .status-badge.bg-success { background-color: var(--success) !important; } .status-badge.bg-warning { background-color: var(--warning) !important; color: var(--dark) !important;} .status-badge.bg-danger { background-color: var(--danger) !important; } .status-badge.bg-info { background-color: var(--info) !important; color: var(--dark) !important;}
+        .chart-container { height: 30px; margin-bottom: 20px; background-color: var(--white); padding: 15px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; }
+        .icon-circle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; color: white; margin-right: 12px; font-size: 0.9rem; flex-shrink: 0; }
+        .bg-icon-success { background-color: var(--success); } .bg-icon-warning { background-color: var(--warning); } .bg-icon-danger { background-color: var(--danger); } .bg-icon-info { background-color: #4f6d7a; } .bg-icon-primary { background-color: var(--primary); } .bg-icon-secondary { background-color: var(--secondary); }
+        @media (max-width: 991.98px) { .sidebar { width: 0; border: none; box-shadow: none;} .main-wrapper { margin-left: 0; width: 100%; padding-top: 56px; } .dashboard-header { left: 0; width: 100%; min-height: 56px; padding: 5px 15px;} .header-title h5 { font-size: 1rem;} .header-title p { font-size: 0.75rem;} .dashboard-container { padding: 15px;} .footer { padding: 10px 15px;} }
+        @media print { body { display: block; } .main-wrapper { margin-left: 0; width: 100%; padding-top: 0; } .no-print { display: none !important; } .report-section { page-break-inside: avoid; } }
+     </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+    <aside class="sidebar no-print">
+        <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>SEPA S.r.l.</h5> </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
+            <li class="nav-title">Analisi Dettagliata</li>
+            <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
+            <li class="nav-item"> <a class="nav-link active" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte5_circolante-flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
+            <li class="nav-title">Approfondimenti</li>
+            <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
+
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Report Dettagliato: Bancabilità e Sostenibilità Debito</h5>
+                <p class="mb-0">SEPA S.r.l. | <span class="report-date">11 Agosto 2025</span></p>
+            </div>
+            <div class="header-controls d-flex align-items-center">
+                <span id="irp-header-badge" class="badge me-3"></span> <!-- Badge IRP -->
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> SEPA S.r.l. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">SEPA S.r.l.</span></h1>
+            <p class="text-center mb-0">Report Dettagliato: Bancabilità e Sostenibilità Debito | <span class="report-date">11 Agosto 2025</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
+
+            <!-- ================================================================ -->
+            <!-- CONTENUTO SPECIFICO PARTE 4 - V11 CON IRP e SINTESI FUSE - Updated for SEPA S.r.l. -->
+            <!-- ================================================================ -->
+
+            <h2 class="section-title" id="bankability"><i class="fas fa-university me-2"></i>4. BANCABILITÀ E SOSTENIBILITÀ DEL DEBITO</h2>
+
+            <!-- Sezione IRP Prominente -->
+           <section class="irp-visual-section risk-high report-section" id="irp-summary-section">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-4 mb-md-0">
+                        <h6 class="card-title-small mb-3"><i class="fas fa-shield-alt me-1"></i> Indice Rischio Ponderato</h6>
+                        <div class="irp-score-circle risk-high"> <span class="irp-score-value">55,87</span> <span class="irp-score-max">/ 100</span> </div>
+                        <div class="irp-category-text text-danger mt-2"> Rischio Elevato <span class="status-badge bg-danger">D+</span> </div>
+                        <a href="irp_dettaglio.html" class="btn btn-sm btn-outline-primary mt-3 btn-pill">Vedi Dettaglio IRP</a>
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="mb-3 fw-bold" style="color: var(--primary);">Valutazione Generale</h4>
+                        <p class="mb-3">Profilo di rischio <strong>elevato con solidità compromessa</strong>. L'azienda presenta un profilo di rischio elevato (IRP 55,87 - categoria D+) con una struttura finanziaria che richiede interventi strutturali. L'eccellente marginalità operativa (EBITDA margin 19,99%) e la solida struttura patrimoniale sono controbilanciate da criticità severe nella gestione del capitale circolante e nella generazione di cassa.</p>
+                        <a href="#crisis-framework" class="btn btn-danger btn-sm mb-3 btn-pill"> <i class="fas fa-exclamation-triangle me-1"></i> Profilo di bancabilità critico </a>
+                        <div class="other-ratings border-top pt-3 mt-3">
+                            <h6 class="card-title-small mb-2">Altri Indicatori di Supporto:</h6>
+                            <ul class="list-unstyled mb-0 row gx-3 gy-2">
+                                <li class="col-sm-6 d-flex align-items-center"><span class="icon-circle icon-circle-sm bg-icon-danger me-2"><i class="fas fa-chart-bar"></i></span><strong>Leanus Score:</strong> 0,70 <span class="badge bg-danger ms-1">Negativo</span></li>
+                                <li class="col-sm-6 d-flex align-items-center"><span class="icon-circle icon-circle-sm bg-icon-danger me-2"><i class="fas fa-building"></i></span><strong>Business Cat.:</strong> <span class="stable-badge ms-1">STUCK</span></li>
+                                <li class="col-sm-6 d-flex align-items-center"><span class="icon-circle icon-circle-sm bg-icon-danger me-2"><i class="fas fa-university"></i></span><strong>Rating MCC:</strong> 8,45% <span class="badge bg-danger ms-1">Fascia 4</span></li>
+                                <li class="col-sm-6 d-flex align-items-center"><span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-calculator"></i></span><strong>Z-Score:</strong> 2,55 <span class="badge bg-warning ms-1">Zona grigia</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sezione 4.1 Valutazione Sintetica della Bancabilità -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.1 Valutazione Sintetica della Bancabilità e Sostenibilità del Debito</h5></div>
+                <div class="card-body">
+                    <p>SEPA SRL presenta, al 31/12/2024, un profilo di bancabilità caratterizzato da significative contraddizioni, con elementi di forza strutturale contrastati da criticità rilevanti nella gestione operativa e finanziaria. La società, attiva dal 2002 nel settore "Fabbricazione di prodotti di base per la copertura stradale" (ATECO 19.20.40), si configura come una media impresa (PMI) con un modello di business di tipo industriale.</p>
+                    
+                    <p>La società è classificata nella categoria Leanus® <strong>STUCK</strong> - "L'azienda presenta un significativo disequilibrio economico e patrimoniale che richiede interventi strutturali", con i seguenti indicatori chiave:</p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Indicatore</th>
+                                    <th class="text-end">Valore</th>
+                                    <th>Valutazione</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Leanus® Score</td>
+                                    <td class="text-end">0,70 ("5 - Negativo")</td>
+                                    <td>Critico</td>
+                                </tr>
+                                <tr>
+                                    <td>Probabilità di Default MCC</td>
+                                    <td class="text-end">8,45%</td>
+                                    <td>Fascia "4" - Rischio medio-alto</td>
+                                </tr>
+                                <tr>
+                                    <td>Z-Score di Altman</td>
+                                    <td class="text-end">2,55</td>
+                                    <td>Zona grigia</td>
+                                </tr>
+                                <tr>
+                                    <td>Debiti Finanziari</td>
+                                    <td class="text-end">€329.788</td>
+                                    <td>Contenuti (2,3% del passivo)</td>
+                                </tr>
+                                <tr>
+                                    <td>PFN</td>
+                                    <td class="text-end">€297.772</td>
+                                    <td>Indebitamento netto contenuto</td>
+                                </tr>
+                                <tr>
+                                    <td>DSCR</td>
+                                    <td class="text-end">1,396</td>
+                                    <td>Adeguato</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h6>Punti di forza:</h6>
+                            <ul>
+                                <li>Eccellente marginalità operativa (EBITDA margin: 19,99%)</li>
+                                <li>Ottima sostenibilità del debito (PFN/EBITDA: 0,35)</li>
+                                <li>Solida struttura patrimoniale (Patrimonio Netto: €6.150.876)</li>
+                                <li>Leverage estremamente contenuto (D/E: 0,05)</li>
+                                <li>Elevata redditività del capitale investito (ROI: 8,72%)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Criticità rilevanti:</h6>
+                            <ul>
+                                <li>Significativa contrazione dei ricavi (-13,20%)</li>
+                                <li>Liquidità critica (€32.016, pari allo 0,74% dei ricavi)</li>
+                                <li>Ciclo del circolante estremamente dilatato (301 giorni)</li>
+                                <li>Cash Flow Operativo insufficiente (2,59% dei ricavi)</li>
+                                <li>Tempi di incasso clienti patologici (532 giorni)</li>
+                                <li>Oneri finanziari elevati (56,70% dei Debiti Finanziari Medi)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p class="mt-3">L'azienda presenta quindi un paradosso finanziario: nonostante gli eccellenti parametri di sostenibilità del debito (PFN/EBITDA = 0,35) e una significativa marginalità operativa (EBITDA margin del 19,99%), evidenzia criticità sostanziali nella gestione del capitale circolante (ciclo finanziario di 301 giorni) e nella generazione di flussi di cassa operativi (€111.508, pari al 2,59% dei ricavi), con una contrazione dei ricavi del 13,20% rispetto all'esercizio precedente.</p>
+                </div>
+            </div>
+
+            <!-- Sezione Indicatori Sostenibilità Debito -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.2 Indicatori di Sostenibilità del Debito</h5></div>
+                <div class="card-body">
+                    <p>Gli indicatori di sostenibilità del debito presentano valori contrastanti, evidenziando aree di forza e di criticità nella struttura finanziaria:</p>
+                    <div class="row">
+                        <div class="col-lg-7 mb-3 mb-lg-0">
+                            <h6>Tabella 4.1: Indicatori Sostenibilità Debito</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped table-hover">
+                                    <thead class="table-light"><tr><th>Indicatore</th><th class="text-end">Valore</th><th>Valutazione</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>PFN/EBITDA</td><td class="text-end">0,35</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                                        <tr><td>Leva Finanziaria (D/E)</td><td class="text-end">0,05</td><td><span class="status-badge bg-success">Ottima</span></td></tr>
+                                        <tr><td>EBIT/Oneri Finanziari</td><td class="text-end">3,01</td><td><span class="status-badge bg-warning">Adeguata</span></td></tr>
+                                        <tr><td>DSCR</td><td class="text-end">1,396</td><td><span class="status-badge bg-warning">Adeguato</span></td></tr>
+                                        <tr><td>Cash Flow Operativo/Debiti Finanziari</td><td class="text-end">33,81%</td><td><span class="status-badge bg-warning">Adeguato</span></td></tr>
+                                        <tr><td>Cash Flow Operativo/Ricavi</td><td class="text-end">2,59%</td><td><span class="status-badge bg-danger">Insufficiente</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <h6 class="text-center small">Grafico 4.1: Indicatori Sostenibilità (Radar)</h6>
+                            <div class="chart-container" style="height: 450px;"> <canvas id="debtSustainabilityChart"></canvas> </div>
+                        </div>
+                    </div>
+                    <h6 class="mt-4">Interpretazione Indicatori Sostenibilità:</h6>
+                    <ul class="small">
+                        <li>Il rapporto <strong>PFN/EBITDA</strong> di 0,35x indica che l'azienda sarebbe in grado di azzerare la propria posizione finanziaria netta in circa 4 mesi utilizzando il solo EBITDA. Tale valore, in lieve peggioramento rispetto al 2023 (0,29x), rimane ampiamente al di sotto della soglia di attenzione (3,0-4,0x), confermando un'eccellente capacità di rimborso potenziale.</li>
+                        <li>La <strong>Leva Finanziaria (D/E)</strong> pari a 0,05, evidenzia un ricorso all'indebitamento estremamente contenuto rispetto al capitale proprio, a conferma di una solida struttura patrimoniale.</li>
+                        <li>La copertura degli <strong>oneri finanziari</strong> è garantita da un EBIT 3,01 volte superiore agli stessi, dimostrando una capacità appena adeguata di sostenere il costo del debito con i margini operativi. Tuttavia, si riscontra un'anomalia strutturale: gli oneri finanziari risultano particolarmente elevati (€187.002, pari al 56,70% dei debiti finanziari medi).</li>
+                        <li>Il <strong>Cash Flow Operativo</strong> del periodo (€111.508) rappresenta il 33,81% dei Debiti Finanziari totali (€329.788), evidenziando una capacità teorica dell'azienda di estinguere il debito finanziario in circa 3 anni con i soli flussi di cassa operativi.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Capacità Indebitamento -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.3 Capacità di Indebitamento Incrementale</h5></div>
+                <div class="card-body">
+                    <p>Secondo l'analisi automatica Leanus, "la capacità teorica di indebitamento incrementale sostenibile è pari a €0, con una classificazione di 'Concessione Fido a rischio del fornitore'".</p>
+                    <div class="row align-items-center">
+                        <div class="col-md-5 mb-3 mb-md-0 text-center">
+                            <div class="alert-box alert-danger p-3">
+                                <div class="icon-circle bg-icon-danger mx-auto mb-2"><i class="fas fa-exclamation"></i></div>
+                                <h6 class="mb-1">Capacità Incrementale Nulla:</h6>
+                                <p class="fs-3 fw-bold mb-1">€ 0</p>
+                                <p class="small text-muted mb-0">Debito aggiuntivo teorico</p>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <h6>Fattori Chiave:</h6>
+                            <div class="row small">
+                                <div class="col-6"><strong>Limitazioni:</strong>
+                                    <ul class="fa-ul ms-3">
+                                        <li><span class="fa-li text-danger"><i class="fas fa-times"></i></span>Contrazione ricavi (-13,20%)</li>
+                                        <li><span class="fa-li text-danger"><i class="fas fa-times"></i></span>Liquidità inadeguata (0,74% ricavi)</li>
+                                        <li><span class="fa-li text-danger"><i class="fas fa-times"></i></span>Ciclo circolante critico (301 giorni)</li>
+                                        <li><span class="fa-li text-danger"><i class="fas fa-times"></i></span>DSO patologico (532 giorni)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-6"><strong>Raccomandazioni:</strong>
+                                    <ul class="fa-ul ms-3">
+                                        <li><span class="fa-li text-warning"><i class="fas fa-exclamation"></i></span>Fido consigliato: €0</li>
+                                        <li><span class="fa-li text-info"><i class="fas fa-info"></i></span>Priorità: ottimizzazione circolante</li>
+                                        <li><span class="fa-li text-info"><i class="fas fa-info"></i></span>Riduzione tempi incasso clienti</li>
+                                        <li><span class="fa-li text-info"><i class="fas fa-info"></i></span>Incremento liquidità disponibile</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="small mt-3">Questa valutazione estremamente conservativa appare in contrasto con i parametri di sostenibilità del debito (PFN/EBITDA = 0,35), ma risulta coerente con le criticità strutturali dell'azienda, in particolare la contrazione dei ricavi, la liquidità inadeguata e il ciclo del circolante gravemente inefficiente.</p>
+                    <p class="small">Un'analisi alternativa, basata esclusivamente sul rapporto PFN/EBITDA, indicherebbe una potenziale capacità di indebitamento incrementale di €1.852.298, calcolata come: PFN/EBITDA target (2,5x) × EBITDA 2024 (€859.828) - PFN attuale (€297.772). Tuttavia, questa valutazione teorica non tiene conto delle significative criticità nella gestione operativa e del capitale circolante.</p>
+                </div>
+            </div>
+
+            <!-- DSCR -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.4 DSCR (Debt Service Coverage Ratio)</h5></div>
+                <div class="card-body">
+                    <p>Il DSCR rappresenta l'indicatore principe per la valutazione della sostenibilità del debito secondo il framework normativo del CCII (Codice della Crisi d'Impresa e dell'Insolvenza). Esso misura la capacità dell'azienda di generare flussi di cassa sufficienti a coprire il servizio del debito.</p>
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Parametro DSCR</th><th class="text-end">Valore</th><th>Valutazione</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>DSCR calcolato</td><td class="text-end">1,396</td><td><span class="status-badge bg-warning">Adeguato</span></td></tr>
+                                <tr><td>Soglia bancaria minima</td><td class="text-end">1,2</td><td>Superata</td></tr>
+                                <tr><td>Margine rispetto alla soglia</td><td class="text-end">+16,3%</td><td>Limitato</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert-box alert-warning">
+                        <h5>Analisi DSCR:</h5>
+                        <p>Il valore del DSCR pari a 1,396, assumendo un orizzonte di rimborso del debito di 3 anni, è superiore alla soglia minima richiesta dal sistema bancario (1,2) e alla soglia di allerta prevista dal CCII (1,0).</p>
+                        <p>Questo risultato conferma un'adeguata capacità dell'azienda di onorare i propri impegni finanziari, sebbene con un margine di sicurezza limitato.</p>
+                    </div>
+                    <p>Stress test sul DSCR:</p>
+                    <ul>
+                        <li><strong>Riduzione Cash Flow Operativo del 20%:</strong> DSCR = 1,12 (Borderline)</li>
+                        <li><strong>Incremento oneri finanziari di 200 bp:</strong> DSCR = 1,35 (Sostenibile)</li>
+                        <li><strong>Scenario combinato:</strong> DSCR = 1,08 (Critico)</li>
+                        <li><strong>Riduzione Cash Flow Operativo del 30%:</strong> DSCR = 0,98 (Non sostenibile)</li>
+                    </ul>
+                    <p>Gli stress test evidenziano una resilienza limitata dell'azienda a scenari avversi. In particolare, una riduzione del 30% del cash flow operativo porterebbe il DSCR sotto la soglia critica di 1,0, configurando una potenziale incapacità di sostenere il servizio del debito.</p>
+                </div>
+            </div>
+
+            <!-- PFN/EBITDA -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.5 Matching Finanziario</h5></div>
+                <div class="card-body">
+                    <p>L'analisi del matching finanziario secondo i quattro principi fondamentali definiti nel Manuale Kitzanos evidenzia significativi elementi di squilibrio nella struttura finanziaria di SEPA S.r.l.</p>
+                    
+                    <div class="row gy-3">
+                        <div class="col-md-6">
+                            <div class="dashboard-card matching-card adequate h-100">
+                                <h6 class="matching-card-header"><i class="fas fa-coins text-warning"></i> Cash Flow Matching</h6>
+                                <p class="small mb-1">Il principio del Cash Flow Matching valuta l'allineamento tra il servizio del debito e la capacità di generazione di cassa:</p>
+                                <ul class="small list-unstyled">
+                                    <li><strong>Cash Flow Operativo:</strong> €111.508</li>
+                                    <li><strong>DSCR:</strong> 1,396</li>
+                                    <li><strong>Cash Flow Operativo/Ricavi:</strong> 2,59%</li>
+                                </ul>
+                                <p class="small">SEPA SRL presenta un Cash Flow Matching adeguato ma non ottimale, con una capacità di generazione di cassa operativa che supera di circa 1,4 volte gli impegni per il servizio del debito. Questo garantisce un margine di sicurezza contenuto.</p>
+                                <p class="small fw-bold mb-0">Valutazione: <span class="status-badge bg-warning">Adeguato</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dashboard-card matching-card excellent h-100">
+                                <h6 class="matching-card-header"><i class="fas fa-layer-group text-success"></i> Amounts Matching</h6>
+                                <p class="small mb-1">Il principio dell'Amounts Matching verifica che il debito a lungo termine non superi l'ammontare degli investimenti a lungo termine:</p>
+                                <ul class="small list-unstyled">
+                                    <li><strong>Valore immobilizzazioni:</strong> €7.078.746</li>
+                                    <li><strong>Debito a lungo termine:</strong> €0</li>
+                                    <li><strong>Differenza:</strong> €7.078.746</li>
+                                </ul>
+                                <p class="small">SEPA SRL presenta un ottimo Amounts Matching, con un valore delle immobilizzazioni ampiamente superiore al debito a lungo termine, che risulta peraltro nullo. Questo conferma che l'azienda finanzia correttamente i propri investimenti strutturali.</p>
+                                <p class="small fw-bold mb-0">Valutazione: <span class="status-badge bg-success">Ottimo</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dashboard-card matching-card adequate h-100">
+                                <h6 class="matching-card-header"><i class="fas fa-hourglass-half text-warning"></i> Duration Matching</h6>
+                                <p class="small mb-1">Il principio del Duration Matching valuta l'allineamento tra la durata del finanziamento e la vita utile degli asset finanziati:</p>
+                                <ul class="small list-unstyled">
+                                    <li><strong>Immobilizzazioni materiali:</strong> €1.525.399</li>
+                                    <li><strong>Immobilizzazioni finanziarie:</strong> €5.550.027</li>
+                                    <li><strong>Debiti finanziari MLT:</strong> €0</li>
+                                </ul>
+                                <p class="small">La concentrazione dell'indebitamento finanziario sul breve termine (100% del totale) a fronte di investimenti in asset tipicamente caratterizzati da cicli di vita medio-lunghi suggerisce un potenziale squilibrio nel Duration Matching.</p>
+                                <p class="small fw-bold mb-0">Valutazione: <span class="status-badge bg-warning">Subottimale</span></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="dashboard-card matching-card adequate h-100">
+                                <h6 class="matching-card-header"><i class="fas fa-gem text-warning"></i> Quality Matching</h6>
+                                <p class="small mb-1">Il principio del Quality Matching valuta l'appropriatezza della forma tecnica del finanziamento rispetto alla natura dell'attivo finanziato:</p>
+                                <ul class="small list-unstyled">
+                                    <li><strong>Immobilizzazioni totali:</strong> €7.078.746</li>
+                                    <li><strong>Debiti BT:</strong> 100% del totale</li>
+                                    <li><strong>Costo del debito:</strong> 56,70%</li>
+                                </ul>
+                                <p class="small">La struttura dell'attivo di SEPA SRL (prevalentemente immobilizzazioni materiali e finanziarie) risulta parzialmente incoerente con la natura esclusivamente a breve termine del finanziamento.</p>
+                                <p class="small fw-bold mb-0">Valutazione: <span class="status-badge bg-warning">Subottimale</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analisi della Capacità di Indebitamento Sostenibile -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.6 Analisi della Capacità di Indebitamento Sostenibile</h5></div>
+                <div class="card-body">
+                    <p>La capacità di indebitamento sostenibile dipende dalla stabilità e prevedibilità dei flussi di cassa operativi. Considerando le criticità strutturali di SEPA SRL nella generazione di cassa operativa e nella gestione del capitale circolante, l'analisi della capacità di indebitamento sostenibile deve necessariamente essere più conservativa rispetto a quanto suggerito dai singoli indicatori di sostenibilità del debito.</p>
+                    
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Parametro</th>
+                                    <th class="text-end">Valore Attuale</th>
+                                    <th>Valutazione</th>
+                                    <th>Capacità incrementale</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PFN/EBITDA</td>
+                                    <td class="text-end">0,35</td>
+                                    <td>Ottimo</td>
+                                    <td>Teoricamente elevata</td>
+                                </tr>
+                                <tr>
+                                    <td>D/E</td>
+                                    <td class="text-end">0,05</td>
+                                    <td>Ottimo</td>
+                                    <td>Teoricamente elevata</td>
+                                </tr>
+                                <tr>
+                                    <td>DSCR</td>
+                                    <td class="text-end">1,396</td>
+                                    <td>Adeguato</td>
+                                    <td>Moderata</td>
+                                </tr>
+                                <tr>
+                                    <td>Cash Flow Operativo/Ricavi</td>
+                                    <td class="text-end">2,59%</td>
+                                    <td>Insufficiente</td>
+                                    <td>Limitata</td>
+                                </tr>
+                                <tr>
+                                    <td>Liquidità/Ricavi</td>
+                                    <td class="text-end">0,74%</td>
+                                    <td>Critica</td>
+                                    <td>Nulla</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>Analisi della capacità di indebitamento sostenibile attuale:</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Scenario</th><th>Formula</th><th class="text-end">Valore (€)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Capacità teorica (PFN/EBITDA = 3,0x)</td><td>3,0 × EBITDA - PFN attuale</td><td class="text-end">2.281.712</td></tr>
+                                <tr><td>Capacità teorica (PFN/EBITDA = 2,5x)</td><td>2,5 × EBITDA - PFN attuale</td><td class="text-end">1.852.298</td></tr>
+                                <tr><td>Capacità incrementale teorica</td><td>Capacità teorica - Debiti finanziari attuali</td><td class="text-end">1.522.510</td></tr>
+                                <tr><td>Fido consigliato a breve termine (Leanus)</td><td>-</td><td class="text-end">0</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="small mt-3">La significativa discrepanza tra la capacità di indebitamento incrementale teorica (€1.522.510) e la valutazione Leanus (€0) evidenzia il peso delle criticità strutturali nella valutazione complessiva della bancabilità dell'azienda, al di là dei singoli indicatori di sostenibilità del debito.</p>
+                    <p class="small">Una valutazione prudenziale, che tenga conto sia degli indicatori di sostenibilità del debito che delle criticità nella gestione operativa e finanziaria, suggerisce una capacità di indebitamento incrementale sostenibile molto contenuta (€0-500.000), significativamente inferiore a quanto indicato dai soli parametri di sostenibilità potenziale.</p>
+                </div>
+            </div>
+
+            <!-- KPI Crisi -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.7 KPI della Crisi d'Impresa (CCII)</h5></div>
+                <div class="card-body">
+                    <p>Secondo quanto riportato nel report Leanus, SEPA SRL risulta in linea con 3 su 6 indicatori della crisi calcolati sullo schema civilistico, evidenziando la presenza di significative aree di vulnerabilità secondo il framework normativo del Codice della Crisi d'Impresa e dell'Insolvenza (CCII).</p>
+                    
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Indicatore CCII</th><th>Formula</th><th class="text-end">Valore</th><th>Valutazione</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Oneri Finanziari/Ricavi</td><td>Tot. Oneri Fin./Ricavi</td><td class="text-end">4,35%</td><td><span class="status-badge bg-danger">Non in linea</span></td></tr>
+                                <tr><td>Patrimonio Netto/Debiti Totali</td><td>PN/(Tot. Debiti + Ratei)</td><td class="text-end">81,45%</td><td><span class="status-badge bg-success">Ampiamente in linea</span></td></tr>
+                                <tr><td>Attività a Breve/Passività a Breve</td><td>Attivo Circolante/Passivo Corrente</td><td class="text-end">98,82%</td><td><span class="status-badge bg-success">In linea</span></td></tr>
+                                <tr><td>Cash Flow/Totale Attivo</td><td>(Utile + Amm.ti + Acc.ti)/Tot. Attivo</td><td class="text-end">2,13%</td><td><span class="status-badge bg-success">In linea</span></td></tr>
+                                <tr><td>Indebitamento Prev. e Trib./Totale Attivo</td><td>(Debiti prev. + Debiti trib.)/Tot. Attivo</td><td class="text-end">20,67%</td><td><span class="status-badge bg-danger">Non in linea</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert-box alert-warning">
+                        <h5>Risultato complessivo: 3/6 indicatori in linea</h5>
+                        <p>L'analisi conferma la presenza di criticità rispetto agli indicatori normativi, in particolare:</p>
+                        <ul>
+                            <li>L'incidenza degli <strong>oneri finanziari sui ricavi</strong> (4,35%) risulta superiore alla soglia di allarme (3,0%), evidenziando un costo del debito eccessivo rispetto alla capacità di generazione di ricavi.</li>
+                            <li>L'<strong>indebitamento previdenziale e tributario</strong> (20,67% dell'attivo) è significativamente superiore alla soglia di allarme (4,9%), configurando un rilevante ricorso a "finanziatori impropri" e potenziali criticità nella gestione fiscale e contributiva.</li>
+                        </ul>
+                    </div>
+                    <p>Il report Leanus evidenzia i seguenti segnali di allerta significativi per SEPA SRL:</p>
+                    <ul>
+                        <li>La <strong>contrazione dei ricavi</strong> (-13,20% nel 2024, -17,89% nel 2023), configurante un trend regressivo persistente</li>
+                        <li>La <strong>riduzione della liquidità</strong> (-29,05% rispetto al periodo precedente)</li>
+                        <li>La <strong>liquidità inadeguata</strong> (0,74% dei ricavi)</li>
+                        <li>Gli <strong>oneri finanziari elevati</strong> (€187.002, pari al 63,05% dei debiti finanziari medi)</li>
+                        <li>I <strong>tempi di incasso clienti patologici</strong> (532 giorni)</li>
+                        <li>L'<strong>incremento dell'indebitamento finanziario</strong> (+€66.392 nel periodo)</li>
+                        <li>La <strong>Posizione Tributaria Netta</strong> elevata (€2.961.762) e in aumento (+18,62%)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Raccomandazioni -->
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">4.8 Raccomandazioni per la Strategia Finanziaria</h5></div>
+                <div class="card-body">
+                    <div class="table-responsive mb-3">
+                        <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Situazione Attuale</th><th>Azione Suggerita</th><th>Effetti Previsti</th><th>Impatto Quantitativo/Costo</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tempi di incasso: 532 giorni</td>
+                                    <td>Implementare sistema strutturato di credit management e politiche di recupero crediti</td>
+                                    <td>Riduzione tempi di incasso, miglioramento cash flow operativo</td>
+                                    <td>Riduzione tempi incasso: -180/200 giorni<br>Incremento cash flow: +€600.000-800.000</td>
+                                </tr>
+                                <tr>
+                                    <td>Indebitamento esclusivamente a breve termine (100%)</td>
+                                    <td>Riequilibrare la struttura finanziaria con finanziamenti a M/L termine</td>
+                                    <td>Miglioramento matching duration, riduzione tensioni liquidità</td>
+                                    <td>Ristrutturazione: €250.000-300.000<br>Risparmio oneri fin.: €30.000-40.000/anno</td>
+                                </tr>
+                                <tr>
+                                    <td>Posizione Tributaria: €2.961.762 (+18,62%)</td>
+                                    <td>Valutare piani di rateizzazione e regolarizzazione posizioni</td>
+                                    <td>Riduzione rischio fiscale, miglioramento bancabilità</td>
+                                    <td>Costo rateizzazione: €50.000-80.000<br>Beneficio rating: +1 notch</td>
+                                </tr>
+                                <tr>
+                                    <td>Liquidità: €32.016 (0,74% ricavi)</td>
+                                    <td>Implementare piano di rafforzamento liquidità e cash pooling</td>
+                                    <td>Miglioramento buffer sicurezza, riduzione rischio tensioni</td>
+                                    <td>Target liquidità minima: €150.000-200.000 (3-5% ricavi)</td>
+                                </tr>
+                                <tr>
+                                    <td>Oneri finanziari: 56,70% dei debiti</td>
+                                    <td>Analisi dettagliata della composizione e rinegoziazione condizioni</td>
+                                    <td>Normalizzazione del costo del debito</td>
+                                    <td>Risparmio: €120.000 oneri finanziari</td>
+                                </tr>
+                                <tr>
+                                    <td>Ciclo circolante: 301 giorni</td>
+                                    <td>Ottimizzazione integrata condizioni clienti/fornitori</td>
+                                    <td>Riduzione fabbisogno finanziario</td>
+                                    <td>Liberazione €1.500.000-2.000.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h6>Raccomandazioni prioritarie</h6>
+                    
+                    <p><strong>1. Gestione del capitale circolante</strong>: Implementare un piano d'azione immediato per la riduzione dei tempi di incasso dei crediti commerciali, attraverso:</p>
+                    <ul>
+                        <li>Revisione delle politiche di credito e delle condizioni contrattuali</li>
+                        <li>Implementazione di un sistema strutturato di credit management</li>
+                        <li>Valutazione di strumenti di smobilizzo crediti (factoring, anticipazioni)</li>
+                        <li>Rinegoziazione dei termini di pagamento con i principali clienti</li>
+                    </ul>
+                    
+                    <p><strong>2. Riequilibrio della struttura finanziaria</strong>: Valutare la ristrutturazione del debito finanziario, riequilibrando la composizione tra breve e medio-lungo termine:</p>
+                    <ul>
+                        <li>Consolidamento di parte del debito a breve in finanziamenti a M/L termine</li>
+                        <li>Ottimizzazione del costo del debito, attualmente eccessivo rispetto ai benchmark di mercato</li>
+                        <li>Allineamento della duration del debito con il ciclo di vita degli asset finanziati</li>
+                    </ul>
+                    
+                    <p><strong>3. Piano di rafforzamento della liquidità</strong>: Implementare un piano strutturato per il rafforzamento della posizione di liquidità:</p>
+                    <ul>
+                        <li>Definizione di un livello minimo di liquidità (buffer di sicurezza) pari al 3-5% dei ricavi</li>
+                        <li>Implementazione di un sistema di cash pooling e treasury management</li>
+                        <li>Definizione di scenari di stress e relativi piani di contingenza</li>
+                    </ul>
+                    
+                    <p class="mt-3"><strong>Conclusione:</strong> SEPA SRL presenta un profilo di bancabilità caratterizzato da significative contraddizioni: da un lato, eccellenti parametri di sostenibilità potenziale del debito (PFN/EBITDA = 0,35), ottima marginalità operativa (EBITDA margin = 19,99%) e solida struttura patrimoniale (PN/Totale Passivo = 42,9%); dall'altro, criticità strutturali nella gestione operativa e finanziaria. La strategia finanziaria deve pertanto focalizzarsi prioritariamente sul superamento delle criticità operative e gestionali, al fine di valorizzare i punti di forza strutturali e migliorare il profilo complessivo di bancabilità dell'azienda.</p>
+                </div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!-- FINE CONTENUTO SPECIFICO PARTE 4 -->
+            <!-- ================================================================ -->
+
+        </div> <!-- /dashboard-container -->
+
+        <!-- Footer Standard V2 (Corretto) -->
+        <footer class="footer no-print"> <div class="container-fluid px-4"> <div class="row align-items-center"> <div class="col-md-6 text-center text-md-start mb-2 mb-md-0"> SCAN360 © <span id="currentYearFooterReport"></span> </div> <div class="col-md-6 text-center text-md-end"> Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a> <img src="../assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2"> </div> </div> </div> </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/charts_config.js"></script>
+    <script src="../js/report_init.js"></script>
+     <script>
+        document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+        document.getElementById('currentYearFooterReport').textContent = new Date().getFullYear();
+
+         // Script aggiornamento badge IRP header
+         document.addEventListener('DOMContentLoaded', function() {
+             const irpScoreValue = 55.87; // IRP Score value
+             let irpBadgeClass = 'bg-danger';
+             let irpCategory = 'D+';
+             
+             if (irpScoreValue >= 90) {
+                 irpBadgeClass = 'bg-success';
+                 irpCategory = 'A';
+             } else if (irpScoreValue >= 80) {
+                 irpBadgeClass = 'bg-success';
+                 irpCategory = 'B+';
+             } else if (irpScoreValue >= 75) {
+                 irpBadgeClass = 'bg-success';
+                 irpCategory = 'B';
+             } else if (irpScoreValue >= 60) {
+                 irpBadgeClass = 'bg-warning';
+                 irpCategory = 'C';
+             } else if (irpScoreValue >= 45) {
+                 irpBadgeClass = 'bg-danger';
+                 irpCategory = 'D+';
+             } else {
+                 irpBadgeClass = 'bg-danger';
+                 irpCategory = 'E';
+             }
+             
+             document.getElementById('irp-header-badge').className = `badge ${irpBadgeClass} me-3`;
+             document.getElementById('irp-header-badge').innerHTML = `<i class="fas fa-shield-alt me-1"></i> IRP: ${irpScoreValue} (${irpCategory})`;
+         });
+
+        // Chart per sostenibilità debito
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('debtSustainabilityChart').getContext('2d');
+            const debtSustainabilityChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['PFN/EBITDA', 'Leva (D/E)', 'DSCR', 'Autonomia', 'Liquidità', 'CFO/Ricavi'],
+                    datasets: [{
+                        label: '2023',
+                        data: [90, 95, 70, 85, 15, 10],
+                        borderColor: 'rgba(54, 162, 235, 0.8)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderWidth: 2
+                    }, {
+                        label: '2024',
+                        data: [85, 95, 65, 85, 10, 25],
+                        borderColor: 'rgba(255, 99, 132, 0.8)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            min: 0,
+                            max: 100,
+                            beginAtZero: true,
+                            ticks: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+
+        function printDocument() {
+            window.print();
+        }
+
+        function logout() {
+            window.location.href = "../index.html";
+        }
+     </script>
+<scan-chat data-bot-id="aa6ba51a-dad9-41aa-ab1d-468e220feb57"></scan-chat>
+<script src="../js/bundle.js"></script>
+</body>
+</html>

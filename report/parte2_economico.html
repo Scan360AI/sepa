@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Economica e Benchmark - SEPA S.r.l. | SCAN V9</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+     <style>
+        .table-success-light { background-color: #d1e7dd !important; }
+        .table-warning-light { background-color: #fff3cd !important; }
+        .table-danger-light { background-color: #f8d7da !important; }
+     </style>
+</head>
+<body>
+
+ <!-- Sidebar -->
+    <aside class="sidebar no-print">
+        <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>SEPA S.r.l.</h5> </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
+            <li class="nav-title">Analisi Dettagliata</li>
+            <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
+            <li class="nav-item"> <a class="nav-link active" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte5_circolante_flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
+            <li class="nav-title">Approfondimenti</li>
+            <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
+
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Report Dettagliato: Analisi Economica e Benchmark</h5>
+                <p class="mb-0">SEPA S.r.l. | <span class="report-date">11 Agosto 2025</span></p>
+            </div>
+            <div class="header-controls d-flex align-items-center">
+                <span id="irp-header-badge" class="badge me-3"></span> <!-- Badge IRP -->
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> SEPA S.r.l. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">SEPA S.r.l.</span></h1>
+            <p class="text-center mb-0">Report Dettagliato: Analisi Economica e Benchmark | <span class="report-date">11 Agosto 2025</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
+
+            <!-- ================================================================ -->
+            <!-- CONTENUTO SPECIFICO PARTE 2 - V9 - Updated for SEPA -->
+            <!-- ================================================================ -->
+
+             <h2 class="section-title" id="economic-analysis"><i class="fas fa-balance-scale me-2"></i>SEZIONE 2.1: ANALISI ECONOMICA</h2>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.1.1 Conto Economico Riclassificato</h5></div>
+                <div class="card-body">
+                    <p>Il conto economico riclassificato evidenzia la struttura dei costi e dei ricavi di SEPA S.r.l. nel periodo 2022-2024, consentendo di valutare la redditività operativa e netta nel settore della fabbricazione di prodotti di base per la copertura stradale.</p>
+
+                     <h6 class="mt-4 text-center small">Grafico 2.1: Andamento Ricavi ed EBITDA 2022-2024 (€000 e %)</h6>
+                     <div class="chart-container mb-4" style="height: 350px;">
+                         <canvas id="economicTrendChart"></canvas>
+                     </div>
+
+                    <h6 class="mt-4">Tabella 2.1: Conto Economico Riclassificato 2022-2024 (valori in €)</h6>
+                     <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                             <thead class="table-light">
+                                 <tr><th>Voce</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th class="text-end">Var. % 23-24</th></tr>
+                             </thead>
+                             <tbody>
+                                 <tr><td>Ricavi</td><td class="text-end">6.034.808</td><td class="text-end">100,0%</td><td class="text-end">4.955.439</td><td class="text-end">100,0%</td><td class="text-end">4.301.307</td><td class="text-end">100,0%</td><td class="text-danger">-13,20%</td></tr>
+                                 <tr><td>Acquisti e consumi</td><td class="text-end">-3.204.768</td><td class="text-end">-53,1%</td><td class="text-end">-2.618.483</td><td class="text-end">-52,8%</td><td class="text-end">-2.097.211</td><td class="text-end">-48,8%</td><td class="text-success">-19,91%</td></tr>
+                                 <tr><td>Valore Aggiunto su Consumi</td><td class="text-end">2.830.040</td><td class="text-end">46,9%</td><td class="text-end">2.336.956</td><td class="text-end">47,2%</td><td class="text-end">2.204.096</td><td class="text-end">51,2%</td><td class="text-danger">-5,68%</td></tr>
+                                 <tr><td>Costi variabili di produzione</td><td class="text-end">-992.905</td><td class="text-end">-16,5%</td><td class="text-end">-593.422</td><td class="text-end">-12,0%</td><td class="text-end">-462.135</td><td class="text-end">-10,7%</td><td class="text-success">-22,12%</td></tr>
+                                 <tr><td>Margine di Contribuzione</td><td class="text-end">1.837.135</td><td class="text-end">30,4%</td><td class="text-end">1.743.534</td><td class="text-end">35,2%</td><td class="text-end">1.741.961</td><td class="text-end">40,5%</td><td class="text-danger">-0,09%</td></tr>
+                                 <tr><td>Costi fissi</td><td class="text-end">-1.009.743</td><td class="text-end">-16,7%</td><td class="text-end">-991.014</td><td class="text-end">-20,0%</td><td class="text-end">-882.133</td><td class="text-end">-20,5%</td><td class="text-success">-10,99%</td></tr>
+                                 <tr class="table-success fw-bold"><td>EBITDA</td><td class="text-end">827.392</td><td class="text-end">13,7%</td><td class="text-end">752.520</td><td class="text-end">15,2%</td><td class="text-end">859.828</td><td class="text-end">20,0%</td><td class="text-success">+14,26%</td></tr>
+                                 <tr><td>Ammortamenti e svalutazioni</td><td class="text-end">-556.956</td><td class="text-end">-9,2%</td><td class="text-end">-383.767</td><td class="text-end">-7,7%</td><td class="text-end">-297.686</td><td class="text-end">-6,9%</td><td class="text-success">-22,43%</td></tr>
+                                 <tr><td>EBIT (Reddito Operativo)</td><td class="text-end">270.436</td><td class="text-end">4,5%</td><td class="text-end">368.753</td><td class="text-end">7,4%</td><td class="text-end">562.142</td><td class="text-end">13,1%</td><td class="text-success">+52,44%</td></tr>
+                                 <tr><td>Saldo oneri/ricavi diversi</td><td class="text-end">80.855</td><td class="text-end">1,3%</td><td class="text-end">-78.262</td><td class="text-end">-1,6%</td><td class="text-end">-171.998</td><td class="text-end">-4,0%</td><td class="text-danger">+119,77%</td></tr>
+                                 <tr><td>Margine Ante Gestione Fin.</td><td class="text-end">351.291</td><td class="text-end">5,8%</td><td class="text-end">290.491</td><td class="text-end">5,9%</td><td class="text-end">390.144</td><td class="text-end">9,1%</td><td class="text-success">+34,30%</td></tr>
+                                 <tr><td>Gestione finanziaria</td><td class="text-end">-63.153</td><td class="text-end">-1,0%</td><td class="text-end">-88.783</td><td class="text-end">-1,8%</td><td class="text-end">-187.002</td><td class="text-end">-4,3%</td><td class="text-danger">+110,63%</td></tr>
+                                 <tr><td>EBT (Utile ante imposte)</td><td class="text-end">288.138</td><td class="text-end">4,8%</td><td class="text-end">201.708</td><td class="text-end">4,1%</td><td class="text-end">203.142</td><td class="text-end">4,7%</td><td class="text-success">+0,71%</td></tr>
+                                 <tr><td>Imposte</td><td class="text-end">-105.661</td><td class="text-end">-1,8%</td><td class="text-end">-116.234</td><td class="text-end">-2,3%</td><td class="text-end">-180.729</td><td class="text-end">-4,2%</td><td class="text-danger">+55,49%</td></tr>
+                                 <tr class="table-success fw-bold"><td>Utile/Perdita d'esercizio</td><td class="text-end">182.477</td><td class="text-end">3,0%</td><td class="text-end">85.474</td><td class="text-end">1,7%</td><td class="text-end">22.413</td><td class="text-end">0,5%</td><td class="text-danger">-73,78%</td></tr>
+                             </tbody>
+                         </table>
+                     </div>
+
+                    <h6 class="mt-4">Analisi della composizione dei costi</h6>
+                     <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                             <thead class="table-light">
+                                 <tr><th>Categoria di costo</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th class="text-end">Var.% 23-24</th></tr>
+                             </thead>
+                             <tbody>
+                                 <tr><td>Acquisti e consumi</td><td class="text-end">3.204.768</td><td class="text-end">53,1%</td><td class="text-end">2.618.483</td><td class="text-end">52,8%</td><td class="text-end">2.097.211</td><td class="text-end">48,8%</td><td class="text-success">-19,91%</td></tr>
+                                 <tr><td>Costi variabili di produzione</td><td class="text-end">992.905</td><td class="text-end">16,5%</td><td class="text-end">593.422</td><td class="text-end">12,0%</td><td class="text-end">462.135</td><td class="text-end">10,7%</td><td class="text-success">-22,12%</td></tr>
+                                 <tr><td>Costo del personale</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">717.797</td><td class="text-end">14,5%</td><td class="text-end">620.795</td><td class="text-end">14,4%</td><td class="text-success">-13,51%</td></tr>
+                                 <tr><td>Altri costi fissi</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">273.217</td><td class="text-end">5,5%</td><td class="text-end">261.338</td><td class="text-end">6,1%</td><td class="text-success">-4,35%</td></tr>
+                                 <tr><td>Ammortamenti</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">349.293</td><td class="text-end">7,0%</td><td class="text-end">297.686</td><td class="text-end">6,9%</td><td class="text-success">-14,77%</td></tr>
+                                 <tr><td>Svalutazioni e acc.</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">34.474</td><td class="text-end">0,7%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-success">-100,00%</td></tr>
+                                 <tr><td>Oneri diversi</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">205.711</td><td class="text-end">4,2%</td><td class="text-end">316.489</td><td class="text-end">7,4%</td><td class="text-danger">+53,85%</td></tr>
+                                 <tr><td>Oneri finanziari</td><td class="text-end">63.153</td><td class="text-end">1,0%</td><td class="text-end">88.783</td><td class="text-end">1,8%</td><td class="text-end">187.002</td><td class="text-end">4,3%</td><td class="text-danger">+110,63%</td></tr>
+                             </tbody>
+                         </table>
+                     </div>
+
+                    <h6 class="mt-4">Analisi del Conto Economico (SEPA S.r.l.):</h6>
+                    <ol class="small">
+                        <li><strong>Ricavi:</strong> Significativa contrazione del 13,20% nel 2024 rispetto al 2023, proseguendo il trend negativo iniziato nel 2023 (-17,89%), con una riduzione complessiva del 28,72% nel biennio 2022-2024.</li>
+                        <li><strong>Valore Aggiunto (51,2%):</strong> Incremento dell'incidenza (+4,0 p.p. rispetto al 2023), indicativo di un miglioramento nell'efficienza di gestione degli approvvigionamenti, nonostante la contrazione in valore assoluto (-5,68%).</li>
+                        <li><strong>EBITDA (20,0%):</strong> Crescita del 14,26% rispetto al 2023, con un'incidenza sui ricavi in aumento (+4,8 p.p.), in controtendenza rispetto alla riduzione dei ricavi, segnale di efficace ristrutturazione dei costi operativi.</li>
+                        <li><strong>EBIT (13,1%):</strong> Forte crescita (+52,44%) con un'incidenza sui ricavi in aumento (+5,7 p.p.), derivante sia dal miglioramento dell'EBITDA sia dalla riduzione dell'incidenza degli ammortamenti.</li>
+                        <li><strong>Utile Netto (0,5%):</strong> Forte contrazione (-73,78%) rispetto al 2023, principalmente a causa dell'incremento significativo degli oneri finanziari (+110,63%) e del carico fiscale (+55,49%).</li>
+                        <li><strong>Oneri finanziari:</strong> Incremento anomalo (+110,63%) con un'incidenza del 4,3% sui ricavi, più che doppia rispetto al benchmark settoriale (1-2%), costituendo il principale fattore di erosione della redditività netta.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.1.2 Analisi della Marginalità</h5></div>
+                 <div class="card-body">
+                    <p>L'analisi della marginalità valuta la capacità di generare valore aggiunto nel settore della fabbricazione di prodotti di base per la copertura stradale.</p>
+                    <div class="row">
+                        <div class="col-lg-7 mb-3 mb-lg-0">
+                            <h6 class="text-center small">Grafico 2.2: Evoluzione delle Principali Marginalità (%)</h6>
+                             <div class="chart-container" style="height: 350px;">
+                                 <canvas id="marginalityChart"></canvas>
+                             </div>
+                        </div>
+                         <div class="col-lg-5">
+                             <h6>Tabella 2.2: Evoluzione Indici di Marginalità (SEPA S.r.l.)</h6>
+                             <div class="table-responsive">
+                                <table class="table table-sm table-striped table-hover">
+                                     <thead><tr><th>Indicatore</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th>Trend</th></tr></thead>
+                                     <tbody>
+                                         <tr><td>Valore Aggiunto/Ricavi</td><td class="text-end">46,9%</td><td class="text-end">47,2%</td><td class="text-end">51,2%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr><td>MdC/Ricavi</td><td class="text-end">30,4%</td><td class="text-end">35,2%</td><td class="text-end">40,5%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr><td>EBITDA/Ricavi</td><td class="text-end">13,7%</td><td class="text-end">15,2%</td><td class="text-end">20,0%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr><td>ROS (EBIT/Ricavi)</td><td class="text-end">4,5%</td><td class="text-end">7,4%</td><td class="text-end">13,1%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr><td>Utile Netto/Ricavi</td><td class="text-end">3,0%</td><td class="text-end">1,7%</td><td class="text-end">0,5%</td><td class="text-danger"><i class="fas fa-arrow-down"></i></td></tr>
+                                         <tr class="table-secondary"><td>Break-Even Point (€)</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">2.913.248</td><td class="text-warning"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr class="table-secondary"><td>Margine Sicurezza</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">32,27%</td><td class="text-success"><i class="fas fa-check"></i></td></tr>
+                                     </tbody>
+                                 </table>
+                             </div>
+                             <h6 class="mt-3">Break-Even e Leva Operativa (2024 - SEPA S.r.l.)</h6>
+                             <div class="alert-box alert-success small mt-2 p-2">
+                                 <ul class="list-unstyled mb-0">
+                                     <li><i class="fas fa-bullseye me-1"></i> BEP: €2.913.248 | Margine Sicurezza: 32,27% (Buono)</li>
+                                     <li><i class="fas fa-calculator me-1"></i> Moltiplicatore CF: 2,47</li>
+                                     <li><i class="fas fa-arrows-alt-v me-1"></i> Variazione ricavi per EBIT=0: -32,27% | Variazione CF per EBIT=0: +63,73%</li>
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">2.1.3 Struttura e Dettaglio Principali Costi</h5></div>
+                 <div class="card-body">
+                     <p>Analisi delle principali voci di costo e loro incidenza nel settore della fabbricazione di prodotti di base per la copertura stradale.</p>
+                     <h6 class="mt-4">Tabella 2.3: Struttura dei Costi 2022-2024 (SEPA S.r.l.)</h6>
+                      <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Categoria di Costo</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th>Var%</th><th>Valutazione</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Acquisti e consumi</td><td class="text-end">3.204.768</td><td class="text-end">53,1%</td><td class="text-end">2.618.483</td><td class="text-end">52,8%</td><td class="text-end">2.097.211</td><td class="text-end">48,8%</td><td class="text-success">-19,91%</td><td><span class="status-badge bg-success">Miglioramento</span></td></tr>
+                                <tr><td>Costi variabili produzione</td><td class="text-end">992.905</td><td class="text-end">16,5%</td><td class="text-end">593.422</td><td class="text-end">12,0%</td><td class="text-end">462.135</td><td class="text-end">10,7%</td><td class="text-success">-22,12%</td><td><span class="status-badge bg-success">Miglioramento</span></td></tr>
+                                <tr><td>Costo del personale</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">717.797</td><td class="text-end">14,5%</td><td class="text-end">620.795</td><td class="text-end">14,4%</td><td class="text-success">-13,51%</td><td><span class="status-badge bg-success">Ottimizzato</span></td></tr>
+                                <tr><td>Altri costi fissi</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">273.217</td><td class="text-end">5,5%</td><td class="text-end">261.338</td><td class="text-end">6,1%</td><td class="text-success">-4,35%</td><td><span class="status-badge bg-warning">Stabile</span></td></tr>
+                                <tr><td>Ammortamenti</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">349.293</td><td class="text-end">7,0%</td><td class="text-end">297.686</td><td class="text-end">6,9%</td><td class="text-success">-14,77%</td><td><span class="status-badge bg-success">Miglioramento</span></td></tr>
+                                <tr><td>Oneri diversi</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">205.711</td><td class="text-end">4,2%</td><td class="text-end">316.489</td><td class="text-end">7,4%</td><td class="text-danger">+53,85%</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Oneri finanziari</td><td class="text-end">63.153</td><td class="text-end">1,0%</td><td class="text-end">88.783</td><td class="text-end">1,8%</td><td class="text-end">187.002</td><td class="text-end">4,3%</td><td class="text-danger">+110,63%</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                            </tbody>
+                         </table>
+                     </div>
+                     <h6 class="mt-4">Analisi del Costo del Personale</h6>
+                      <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Dettaglio</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th class="text-end">Var.% 23-24</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Numero dipendenti</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">14</td><td class="text-end">n.d.</td></tr>
+                                <tr><td>Costo totale personale (€)</td><td class="text-end">n.d.</td><td class="text-end">717.797</td><td class="text-end">620.795</td><td class="text-success">-13,51%</td></tr>
+                                <tr><td>Costo medio per dipendente (€)</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">44.342</td><td class="text-end">n.d.</td></tr>
+                                <tr><td>Incidenza su ricavi (%)</td><td class="text-end">n.d.</td><td class="text-end">14,5%</td><td class="text-end">14,4%</td><td class="text-success">-0,1 p.p.</td></tr>
+                                <tr><td>Ricavi per dipendente (€)</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">307.236</td><td class="text-end">n.d.</td></tr>
+                            </tbody>
+                         </table>
+                     </div>
+                     <h6 class="mt-4">Approfondimento (SEPA S.r.l.):</h6>
+                     <ul class="small">
+                          <li><strong>Acquisti/Consumi (48,8%):</strong> Riduzione dell'incidenza rispetto al 2023 (-4,0 p.p.), evidenziando un miglioramento nell'efficienza dell'approvvigionamento e nell'utilizzo delle materie prime.</li>
+                          <li><strong>Costi variabili (-22,12%):</strong> Significativa riduzione in valore assoluto e in incidenza sui ricavi (dal 12,0% al 10,7%), suggerendo un'efficace ottimizzazione dei processi produttivi.</li>
+                          <li><strong>Costo del personale (14,4%):</strong> Ottimizzazione significativa (-13,51%) con buona produttività per dipendente (€307.236), inferiore al benchmark di settore (15-18%).</li>
+                          <li><strong>Oneri diversi (7,4%):</strong> Incremento anomalo (+53,85%) che richiede approfondimento, con un'incidenza superiore al benchmark settoriale (3-5%).</li>
+                          <li><strong>Oneri finanziari (4,3%):</strong> Criticità principale con incremento del 110,63%, che erode significativamente la redditività netta. Il rapporto tra oneri finanziari e debiti finanziari medi (56,70%) è estremamente elevato e richiede un'analisi approfondita.</li>
+                     </ul>
+                 </div>
+            </div>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.1.4 Indici di Redditività</h5></div>
+                 <div class="card-body">
+                     <p>Analisi della capacità di generare ritorni adeguati nel settore della fabbricazione di prodotti di base per la copertura stradale.</p>
+                      <div class="row">
+                         <div class="col-lg-7 mb-3 mb-lg-0">
+                             <h6>Tabella 2.4: Indici di Redditività 2022-2024 (SEPA S.r.l.)</h6>
+                              <div class="table-responsive">
+                                 <table class="table table-sm table-striped table-hover">
+                                     <thead class="table-light"><tr><th>Indice</th><th>Formula</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th>Soglia</th><th>Valutazione</th></tr></thead>
+                                     <tbody>
+                                         <tr><td>ROE</td><td>Utile/PN</td><td class="text-end">3,02%</td><td class="text-end">1,39%</td><td class="text-end">0,36%</td><td>> 4%</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                         <tr><td>ROI</td><td>EBIT/CIN</td><td class="text-end">4,25%</td><td class="text-end">5,81%</td><td class="text-end">8,72%</td><td>> 6%</td><td><span class="status-badge bg-success">Buono</span></td></tr>
+                                         <tr><td>ROS</td><td>EBIT/Ricavi</td><td class="text-end">4,5%</td><td class="text-end">7,4%</td><td class="text-end">13,1%</td><td>> 5%</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                                         <tr><td>EBITDA Margin</td><td>EBITDA/Ricavi</td><td class="text-end">13,7%</td><td class="text-end">15,2%</td><td class="text-end">20,0%</td><td>> 10%</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                                         <tr><td>Asset Turnover</td><td>Ricavi/CIN</td><td class="text-end">0,95</td><td class="text-end">0,78</td><td class="text-end">0,67</td><td>> 0,9</td><td><span class="status-badge bg-warning">Insufficiente</span></td></tr>
+                                         <tr><td>Cash Flow / Ricavi</td><td>CF Op./Ricavi</td><td class="text-end">70,48%</td><td class="text-end">0,82%</td><td class="text-end">2,59%</td><td>> 5%</td><td><span class="status-badge bg-warning">Insufficiente</span></td></tr>
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                          <div class="col-lg-5">
+                              <h6 class="text-center small">Grafico 2.3: Andamento Redditività (%)</h6>
+                              <div class="chart-container" style="height: 280px;"> <canvas id="profitabilityIndicesChart"></canvas> </div>
+                         </div>
+                     </div>
+                      <h6 class="mt-4">Analisi (SEPA S.r.l.):</h6>
+                      <ul class="small">
+                        <li><strong>ROE (0,36%):</strong> Valore estremamente contenuto e in ulteriore flessione rispetto agli esercizi precedenti, significativamente inferiore al benchmark di settore (4-7%) e al costo opportunità del capitale.</li>
+                        <li><strong>ROI (8,72%):</strong> In significativo miglioramento rispetto agli anni precedenti, si colloca nella fascia alta del benchmark di settore (6-8%), indicando una buona capacità di generare rendimento dal capitale investito.</li>
+                        <li><strong>ROS (13,1%):</strong> Ottima performance, in significativo miglioramento (+5,7 p.p.) rispetto al 2023, posizionando l'azienda nettamente al di sopra del benchmark di settore (5-8%).</li>
+                        <li><strong>EBITDA Margin (20,0%):</strong> Eccellente marginalità operativa, significativamente superiore al benchmark di settore (10-13%), indicativa di un'elevata efficienza operativa.</li>
+                        <li><strong>Asset Turnover (0,67):</strong> In riduzione rispetto agli esercizi precedenti e inferiore al benchmark di settore (0,9-1,2), segnalando una diminuzione dell'efficienza nell'utilizzo delle risorse investite.</li>
+                        <li><strong>Cash Flow / Ricavi (2,59%):</strong> Sebbene in miglioramento rispetto al 2023, rimane significativamente inferiore al benchmark di settore (5-8%), evidenziando una limitata capacità di conversione dei ricavi in flussi di cassa operativi.</li>
+                      </ul>
+                 </div>
+            </div>
+
+             <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.1.5 Effetto Leva Finanziaria</h5></div>
+                 <div class="card-body">
+                     <p>Valutazione dell'impatto dell'indebitamento sulla redditività del capitale proprio nel contesto della fabbricazione di prodotti di base per la copertura stradale.</p>
+                      <div class="row">
+                          <div class="col-lg-7 mb-3 mb-lg-0">
+                              <h6>Tabella 2.5: Analisi Effetto Leva 2022-2024 (SEPA S.r.l.)</h6>
+                              <div class="table-responsive">
+                                 <table class="table table-sm table-striped table-hover">
+                                      <thead><tr><th>Parametro</th><th>Formula</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th class="text-end">Variazione 23-24</th></tr></thead>
+                                      <tbody>
+                                          <tr><td>ROI</td><td>EBIT/CIN</td><td class="text-end">4,25%</td><td class="text-end">5,81%</td><td class="text-end">8,72%</td><td class="text-end">+2,91 p.p.</td></tr>
+                                          <tr><td>Costo medio del debito (i)</td><td>Oneri Fin./Debiti Fin.</td><td class="text-end">16,69%</td><td class="text-end">33,71%</td><td class="text-end">56,70%</td><td class="text-end">+22,99 p.p.</td></tr>
+                                          <tr><td>Spread (ROI - i)</td><td>ROI - i</td><td class="text-end text-danger">-12,44%</td><td class="text-end text-danger">-27,90%</td><td class="text-end text-danger">-47,98%</td><td class="text-end">-20,08 p.p.</td></tr>
+                                          <tr><td>Rapporto D/E (Debt/Equity)</td><td>Debiti Fin./PN</td><td class="text-end">0,06</td><td class="text-end">0,04</td><td class="text-end">0,05</td><td class="text-end">+0,01</td></tr>
+                                          <tr class="table-secondary"><td>Effetto leva (ROI - i) × D/E</td><td>(ROI - i) × D/E</td><td class="text-end text-danger">-0,75%</td><td class="text-end text-danger">-1,12%</td><td class="text-end text-danger">-2,40%</td><td class="text-end">-1,28 p.p.</td></tr>
+                                          <tr><td>ROE teorico (ROI + effetto leva)</td><td>ROI + Effetto Leva</td><td class="text-end">3,50%</td><td class="text-end">4,69%</td><td class="text-end">6,32%</td><td class="text-end">+1,63 p.p.</td></tr>
+                                          <tr class="fw-bold"><td>ROE effettivo</td><td>Utile Netto/PN</td><td class="text-end">3,02%</td><td class="text-end">1,39%</td><td class="text-end">0,36%</td><td class="text-end">-1,03 p.p.</td></tr>
+                                          <tr><td>Differenza (ROE effettivo - ROE teorico)</td><td>ROE - ROE teorico</td><td class="text-end">-0,48%</td><td class="text-end">-3,30%</td><td class="text-end">-5,96%</td><td class="text-end">-2,66 p.p.</td></tr>
+                                      </tbody>
+                                 </table>
+                              </div>
+                          </div>
+                          <div class="col-lg-5">
+                               <h6 class="text-center small">Grafico 2.4: Evoluzione della Struttura Finanziaria</h6>
+                               <div class="chart-container" style="height: 250px;"> <canvas id="leverageChart"></canvas> </div>
+                                <h6 class="mt-4">Analisi Leva (SEPA S.r.l.):</h6>
+                               <ul class="small list-unstyled">
+                                <li><i class="fas fa-exclamation-circle text-danger me-1"></i> Spread (ROI-i) fortemente negativo (-47,98%), in ulteriore peggioramento rispetto al 2023, a causa dell'incremento anomalo del costo del debito.</li>
+                                <li><i class="fas fa-exclamation-circle text-danger me-1"></i> Costo del debito estremamente elevato (56,70%), in costante aumento nel triennio, significativamente superiore al benchmark settoriale (5-7%).</li>
+                                <li><i class="fas fa-info-circle text-success me-1"></i> D/E estremamente contenuto (0,05), notevolmente inferiore al benchmark ottimale (<1,0), indicando un limitatissimo ricorso al capitale di debito.</li>
+                                <li><i class="fas fa-arrow-down text-danger me-1"></i> ROE effettivo (0,36%) drasticamente inferiore al ROE teorico (6,32%), evidenziando l'impatto negativo della gestione finanziaria e fiscale.</li>
+                                <li><i class="fas fa-exclamation-triangle text-warning me-1"></i> L'effetto leva fortemente negativo (-2,40%) è mitigato solo dal bassissimo livello di indebitamento, che limita l'impatto complessivo sul ROE.</li>
+                               </ul>
+                          </div>
+                      </div>
+                 </div>
+            </div>
+
+             <h2 class="section-title mt-5" id="benchmark"><i class="fas fa-chart-bar me-2"></i>SEZIONE 2.2: BENCHMARK E POSIZIONAMENTO COMPETITIVO</h2>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.2.1 Posizionamento Competitivo</h5></div>
+                 <div class="card-body">
+                     <p>Valutazione della performance rispetto al settore "Fabbricazione di prodotti di base per la copertura stradale" (ATECO 19.20.40).</p>
+                     <div class="row">
+                         <div class="col-lg-7 mb-3 mb-lg-0">
+                              <h6 class="text-center small">Grafico 2.5: Posizionamento Competitivo (Base 100 = Media Settore)</h6>
+                             <div class="chart-container" style="height: 350px;"> <canvas id="benchmarkRadarChart"></canvas>          
+                                 <script>
+                                     document.addEventListener('DOMContentLoaded', function() {
+                                         const ctxBenchmarkRadar = document.getElementById('benchmarkRadarChart');
+
+                                         if (ctxBenchmarkRadar) {
+                                             try {
+                                                  const benchmarkRadarData = {
+                                                     labels: ["Crescita Ricavi", "EBITDA Margin", "ROI", "Turnover", "Costo Personale (inv)", "PFN/EBITDA (inv)", "D/E (inv)"],
+                                                     datasets: [
+                                                         {
+                                                             label: "SEPA S.r.l.",
+                                                             data: [0, 180, 125, 70, 105, 250, 300],
+                                                             backgroundColor: "rgba(25, 25, 112, 0.3)",
+                                                             borderColor: "rgba(25, 25, 112, 1)",
+                                                             borderWidth: 2, pointBackgroundColor: "rgba(25, 25, 112, 1)", pointBorderColor: "#fff",
+                                                             pointHoverBackgroundColor: "#fff", pointHoverBorderColor: "rgba(25, 25, 112, 1)"
+                                                         },
+                                                         {
+                                                             label: "Media Settore",
+                                                             data: [100, 100, 100, 100, 100, 100, 100],
+                                                             backgroundColor: "rgba(217, 140, 0, 0.3)",
+                                                             borderColor: "rgba(217, 140, 0, 1)",
+                                                             borderWidth: 2, pointBackgroundColor: "rgba(217, 140, 0, 1)", pointBorderColor: "#fff",
+                                                             pointHoverBackgroundColor: "#fff", pointHoverBorderColor: "rgba(217, 140, 0, 1)"
+                                                         }
+                                                     ]
+                                                 };
+
+                                                 const benchmarkRadarOptions = {
+                                                     responsive: true,
+                                                     maintainAspectRatio: false,
+                                                       scales: {
+                                                          r: {
+                                                              angleLines: { color: '#e0e0e0' }, grid: { color: '#e0e0e0' },
+                                                              pointLabels: { font: { size: 10 } },
+                                                              ticks: {
+                                                                  backdropColor: 'rgba(255, 255, 255, 0.75)', font: { size: 9 },
+                                                                  maxTicksLimit: 5,
+                                                              },
+                                                              suggestedMin: 0,
+                                                          }
+                                                       },
+                                                       plugins: {
+                                                            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15, font: { size: 11 } } },
+                                                            title: { display: false },
+                                                            tooltip: {
+                                                                backgroundColor: 'rgba(0, 0, 0, 0.8)', titleFont: { weight: 'bold', size: 13 },
+                                                                bodyFont: { size: 12 }, padding: 10, cornerRadius: 4, displayColors: true, boxPadding: 4,
+                                                                callbacks: {
+                                                                    label: function(context) {
+                                                                        let label = context.dataset.label || '';
+                                                                        if (label) label += ': ';
+                                                                        if (context.parsed.r !== null) { label += context.parsed.r.toFixed(1); }
+                                                                        else { label += 'N/D'; }
+                                                                        return label;
+                                                                    }
+                                                                }
+                                                            }
+                                                       },
+                                                       animation: { duration: 400 }
+                                                 };
+
+                                                 const existingChart = Chart.getChart(ctxBenchmarkRadar);
+                                                 if (existingChart instanceof Chart) {
+                                                     existingChart.destroy();
+                                                 }
+
+                                                 new Chart(ctxBenchmarkRadar, {
+                                                     type: 'radar',
+                                                     data: benchmarkRadarData,
+                                                     options: benchmarkRadarOptions
+                                                 });
+                                                 console.log("Grafico benchmarkRadarChart inizializzato direttamente in HTML.");
+
+                                             } catch (error) {
+                                                 console.error("Errore inizializzazione grafico benchmarkRadarChart in HTML:", error);
+                                                  const ctx = ctxBenchmarkRadar.getContext('2d');
+                                                   if (ctx) {
+                                                       ctx.clearRect(0, 0, ctxBenchmarkRadar.width, ctxBenchmarkRadar.height);
+                                                       ctx.font = '14px Titillium Web, sans-serif';
+                                                       ctx.fillStyle = '#dc3545';
+                                                       ctx.textAlign = 'center';
+                                                       ctx.fillText('Errore durante il caricamento del grafico.', ctxBenchmarkRadar.width / 2, ctxBenchmarkRadar.height / 2);
+                                                   }
+                                             }
+                                         } else {
+                                              console.warn("Canvas 'benchmarkRadarChart' non trovato.");
+                                         }
+                                     });
+                                 </script>
+                                 </div>
+                         </div>
+                         <div class="col-lg-5">
+                              <h6>Tabella 2.6: Posizionamento Competitivo 2024 (SEPA S.r.l.)</h6>
+                              <div class="table-responsive">
+                                <table class="table table-sm table-striped table-hover">
+                                    <thead><tr><th>Indicatore</th><th>SEPA</th><th>Media Sett.</th><th>Gap</th><th>Valutazione</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Crescita ricavi</td><td>-13,20%</td><td>+2-3%</td><td class="text-danger">-15,7 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                        <tr><td>EBITDA Margin</td><td>20,0%</td><td>10-13%</td><td class="text-success">+8,5 p.p.</td><td><span class="status-badge bg-success">Superiore</span></td></tr>
+                                        <tr><td>ROI</td><td>8,72%</td><td>6-8%</td><td class="text-success">+1,22 p.p.</td><td><span class="status-badge bg-success">Superiore</span></td></tr>
+                                        <tr><td>ROS</td><td>13,1%</td><td>5-8%</td><td class="text-success">+6,6 p.p.</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                                        <tr><td>Asset Turnover</td><td>0,67</td><td>0,9-1,2</td><td class="text-danger">-0,38</td><td><span class="status-badge bg-warning">Inferiore</span></td></tr>
+                                        <tr><td>PFN/EBITDA</td><td>0,35</td><td>1,5-2,0</td><td class="text-success">-1,3</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                                        <tr><td>Leva D/E</td><td>0,05</td><td>0,5-0,7</td><td class="text-success">-0,55</td><td><span class="status-badge bg-success">Ottima</span></td></tr>
+                                        <tr><td>Giorni Crediti Clienti</td><td>532</td><td>60-90</td><td class="text-danger">+457</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                        <tr><td>Ciclo Circolante</td><td>301</td><td>60-90</td><td class="text-danger">+226</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                    </tbody>
+                                </table>
+                              </div>
+                         </div>
+                     </div>
+                      <h6 class="mt-4">Analisi posizionamento (SEPA S.r.l.):</h6>
+                      <p class="small mb-0">SEPA S.r.l. presenta un <strong>posizionamento contrastato</strong> rispetto al settore. Eccelle in termini di efficienza operativa (EBITDA margin 20,0% vs 10-13%), redditività delle vendite (ROS 13,1% vs 5-8%) e solidità finanziaria (PFN/EBITDA 0,35 vs 1,5-2,0, D/E 0,05 vs 0,5-0,7). Le <strong>principali criticità</strong> riguardano la significativa contrazione dei ricavi (-13,20%), l'efficienza nell'utilizzo del capitale investito (Asset Turnover 0,67 vs 0,9-1,2) e soprattutto la gestione del capitale circolante, con tempi di incasso dai clienti (532 giorni) e ciclo del circolante (301 giorni) patologicamente superiori ai benchmark settoriali. Il paradosso economico-finanziario dell'azienda è caratterizzato da un'eccellente marginalità operativa che non si traduce in adeguata generazione di cassa a causa di un ciclo del circolante gravemente inefficiente.</p>
+                 </div>
+            </div>
+
+             <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">2.2.2 Gap Analysis vs Best Practice</h5></div>
+                  <div class="card-body">
+                     <p>Identificazione aree di miglioramento rispetto alle best practice del settore della fabbricazione di prodotti di base per la copertura stradale.</p>
+                     <h6 class="mt-4">Tabella 2.7: Gap Analysis 2024 (SEPA S.r.l.)</h6>
+                      <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light"> <tr><th>Area</th><th>Situazione Attuale</th><th>Benchmark</th><th>Gap</th><th>Valutazione</th></tr></thead>
+                             <tbody>
+                                <tr><td>Cash Flow Operativo</td><td>2,59% dei ricavi</td><td>>5% dei ricavi</td><td class="text-danger">-2,41 p.p.</td><td><span class="status-badge bg-warning">Insufficiente</span></td></tr>
+                                <tr><td>Costo del Debito</td><td>56,70%</td><td>5-7%</td><td class="text-danger">+50,70 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Gestione Crediti Clienti</td><td>DSO: 532 giorni</td><td>60-90 giorni</td><td class="text-danger">+457 giorni</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Gestione Debiti Fornitori</td><td>DPO: 326 giorni</td><td>60-90 giorni</td><td class="text-warning">+251 giorni</td><td><span class="status-badge bg-warning">Anomalo</span></td></tr>
+                                <tr><td>Ciclo del Circolante</td><td>301 giorni</td><td>60-90 giorni</td><td class="text-danger">+226 giorni</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Crescita Ricavi</td><td>-13,20%</td><td>+2-3%</td><td class="text-danger">-15,7 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>ROE</td><td>0,36%</td><td>4-7%</td><td class="text-danger">-3,64 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Liquidità</td><td>0,74% dei ricavi</td><td>5-8% dei ricavi</td><td class="text-danger">-4,26 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                             </tbody>
+                         </table>
+                     </div>
+                  </div>
+             </div>
+
+             <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">2.2.3 Azioni di Miglioramento Suggerite</h5></div>
+                  <div class="card-body">
+                      <h6 class="mt-4">Tabella 2.8: Piano di Azione Economico (Sintesi - SEPA S.r.l.)</h6>
+                      <div class="table-responsive">
+                          <table class="table table-sm table-hover action-table">
+                              <thead class="table-light"><tr><th><i class="fas fa-flag me-1"></i> Area</th><th><i class="fas fa-wrench me-1"></i> Azione Suggerita</th><th><i class="fas fa-chart-line me-1"></i> Effetti Previsti</th><th><i class="fas fa-coins me-1"></i> Net Benefit Stimato</th></tr></thead>
+                              <tbody>
+                                  <tr><td>Gestione Crediti</td><td>Implementare sistema strutturato di credit management e ricorso a strumenti di smobilizzo</td><td>Riduzione DSO da 532 a 180 giorni</td><td class="text-success">Liberazione liquidità: €4.922.576</td></tr>
+                                  <tr><td>Oneri Finanziari</td><td>Analisi dettagliata oneri finanziari e rinegoziazione condizioni</td><td>Normalizzazione del costo del debito dal 56,70% al 15-20%</td><td class="text-success">Risparmio: €120.000-140.000/anno</td></tr>
+                                  <tr><td>Gestione Magazzino</td><td>Ottimizzazione scorte con sistemi pull e analisi ABC</td><td>Riduzione DIO da 95 a 40 giorni</td><td class="text-success">Liberazione liquidità: €320.430</td></tr>
+                                  <tr><td>Gestione Fornitori</td><td>Normalizzazione pagamenti con piano di rientro verso fornitori strategici</td><td>Riduzione DPO da 326 a 120 giorni</td><td class="text-danger">Assorbimento liquidità: €1.200.156</td></tr>
+                                  <tr><td>Strategia Commerciale</td><td>Piano di sviluppo commerciale con diversificazione su segmenti anticongiunturali</td><td>Inversione trend ricavi e crescita +5-8%</td><td class="text-success">Incremento ricavi: €215.000-344.000</td></tr>
+                                  <tr><td>Liquidità</td><td>Implementare sistema strutturato di cash planning e costituire riserva minima di liquidità</td><td>Incremento liquidità al 5% dei ricavi</td><td class="text-success">Target liquidità: €215.000</td></tr>
+                              </tbody>
+                          </table>
+                      </div>
+                       <p class="small mt-3 text-muted">L'implementazione di queste azioni consentirebbe di liberare oltre €4 milioni di risorse finanziarie attraverso l'ottimizzazione del capitale circolante, con un impatto positivo stimato sull'EBITDA di €150.000-200.000 annui. La priorità assoluta deve essere assegnata alla normalizzazione dei tempi di incasso dai clienti, attualmente a livelli patologici, e alla rinegoziazione delle condizioni finanziarie per ridurre l'anomala incidenza degli oneri finanziari.</p>
+                  </div>
+             </div>
+
+            <div class="card summary-card mb-4 report-section">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-check-circle text-primary me-2"></i>Conclusioni Analisi Economica e Benchmark (SEPA S.r.l.)</h5>
+                     <p>SEPA S.r.l. presenta un <strong>profilo economico caratterizzato da una marcata dicotomia</strong>: eccellente marginalità operativa (EBITDA margin 20,0%, ROS 13,1%) ma significative criticità nella gestione finanziaria e del capitale circolante. La redditività operativa è significativamente superiore ai benchmark settoriali, ma viene erosa dagli elevati oneri finanziari e dalla limitata capacità di generazione di cassa.</p>
+                     <p>Le <strong>principali criticità</strong> riguardano: (1) la gestione patologica dei crediti commerciali (532 giorni), (2) il costo del debito anomalo (56,70%), (3) la significativa contrazione dei ricavi (-13,20%), (4) la liquidità critica (0,74% dei ricavi) e (5) la redditività del capitale proprio marginale (ROE 0,36%).</p>
+                     <p>Le <strong>azioni prioritarie</strong> devono concentrarsi sull'ottimizzazione del capitale circolante, con particolare focus sulla normalizzazione dei tempi di incasso dai clienti, sulla rinegoziazione delle condizioni finanziarie per ridurre gli oneri finanziari, e sull'implementazione di un piano commerciale per invertire il trend negativo dei ricavi. L'eccellente marginalità operativa e la solida struttura patrimoniale costituiscono una base robusta per il turnaround finanziario.</p>
+                </div>
+            </div>
+
+
+            <!-- ================================================================ -->
+            <!-- FINE CONTENUTO SPECIFICO PARTE 2 -->
+            <!-- ================================================================ -->
+
+        </div> <!-- /dashboard-container -->
+
+        <!-- Footer Standard V2 (Nessuna modifica necessaria) -->
+        <footer class="footer no-print"> <div class="container-fluid px-4"> <div class="row align-items-center"> <div class="col-md-6 text-center text-md-start mb-2 mb-md-0"> SCAN360 © <span id="currentYearFooterReport"></span> </div> <div class="col-md-6 text-center text-md-end"> Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a> <img src="../assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2"> </div> </div> </div> </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../js/common.js"></script>
+    <!--<script src="../js/charts_config.js"></script>-->
+    <script src="../js/report_init.js"></script>
+    <script src="../js/economico_charts.js"></script>
+     <script>
+        document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+        document.getElementById('currentYearFooterReport').textContent = new Date().getFullYear();
+
+         // Script aggiornamento badge IRP header (Updated for SEPA)
+         document.addEventListener('DOMContentLoaded', function() {
+             const irpScoreValue = 55.87; // Updated IRP Value from PARTE0_irp-report.md
+             const irpHeaderBadge = document.getElementById('irp-header-badge');
+             if(irpHeaderBadge) {
+                 let badgeClass = 'bg-warning text-dark';
+                 if (irpScoreValue >= 71) badgeClass = 'bg-success'; // Basso
+                 else if (irpScoreValue < 51) badgeClass = 'bg-danger'; // Alto
+                 irpHeaderBadge.className = `badge ${badgeClass} me-3`;
+                 irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
+             }
+
+              // Ensure logout function is defined
+             if (typeof logout !== 'function') {
+                 window.logout = function() {
+                    console.log("Logout action triggered (placeholder)");
+                }
+             }
+             // Ensure print function is defined
+             if (typeof printDocument !== 'function') {
+                window.printDocument = function() {
+                    window.print();
+                }
+             }
+         });
+    </script>
+    <scan-chat data-bot-id="aa6ba51a-dad9-41aa-ab1d-468e220feb57"></scan-chat>
+    <script src="../js/bundle.js"></script>
+</body>
+</html>

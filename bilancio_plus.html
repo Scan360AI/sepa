@@ -653,10 +653,150 @@
         </div>
     </div>
 
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/main.js"></script>
-    <script src="./js/bilancio_plus.js"></script>
+  <script>
+        // ======================================
+        // HELPER FUNCTIONS
+        // ======================================
+        function formatCurrency(value, decimals = 0) {
+            if (isNaN(value)) return value;
+            return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(value);
+        }
+        function formatNumber(value, decimals = 0) {
+             if (isNaN(value)) return value;
+             return new Intl.NumberFormat('it-IT', { style: 'decimal', minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(value);
+         }
+        function formatPercentage(value) {
+             if (isNaN(value)) return value;
+             return new Intl.NumberFormat('it-IT', { style: 'decimal', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(value) + '%';
+        }
+
+        function initChart(canvasId, type, data, options) {
+             const canvas = document.getElementById(canvasId);
+             if (!canvas) { console.error(`Canvas element with ID '${canvasId}' not found.`); return null; }
+             const ctx = canvas.getContext('2d');
+             const existingChart = Chart.getChart(canvasId);
+             if (existingChart) { try { existingChart.destroy(); } catch(e) { console.warn(`Could not destroy previous chart instance for ${canvasId}: ${e}`);} }
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
+             if (!data || !data.labels || !data.datasets) {
+                  ctx.fillStyle = '#dc3545'; ctx.font = '14px "Titillium Web", sans-serif'; ctx.textAlign = 'center';
+                  ctx.fillText('Errore: Dati non disponibili.', canvas.width / 2, canvas.height / 2);
+                  console.error(`Dati non validi forniti a initChart per ${canvasId}`);
+                  return null;
+              }
+             try {
+                 const newChart = new Chart(ctx, { type: type, data: data, options: options });
+                 return newChart;
+             } catch (error) {
+                  console.error(`Errore durante la creazione del grafico ${canvasId}:`, error);
+                  ctx.fillStyle = '#dc3545'; ctx.font = '14px "Titillium Web", sans-serif'; ctx.textAlign = 'center';
+                  const errorMessage = error.message && typeof error.message === 'string' ? (error.message.length > 100 ? error.message.substring(0, 97) + '...' : error.message) : 'Errore sconosciuto';
+                  ctx.fillText(`Errore grafico: ${errorMessage}`, canvas.width / 2, canvas.height / 2);
+                 return null;
+             }
+         }
+
+        // ======================================
+        // CHART DATA (Bilancio Plus - Sardiniae Ars)
+        // ======================================
+        // Colori Consistenti
+         const colorAttuale = 'rgba(74, 105, 189, 0.7)'; // Blu secondario
+         const colorAttualeBorder = 'rgba(74, 105, 189, 1)';
+         const colorOttimizzato = 'rgba(76, 175, 80, 0.7)'; // Verde successo
+         const colorOttimizzatoBorder = 'rgba(76, 175, 80, 1)';
+
+         const utileNettoData = {
+             labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+             datasets: [{
+                 label: 'EBITDA (€)', data: [137277, 157382],
+                 backgroundColor: [colorAttuale, colorOttimizzato],
+                 borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
+             }]
+         };
+         const ebitdaMarginData = {
+              labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+              datasets: [{
+                  label: 'EBITDA Margin (%)', data: [6.19, 6.99],
+                  backgroundColor: [colorAttuale, colorOttimizzato],
+                  borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
+              }]
+          };
+          const cccData = {
+               labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+               datasets: [{
+                   label: 'Cash Flow Operativo (€)', data: [-84038, 50000],
+                   backgroundColor: [colorAttuale, colorOttimizzato],
+                   borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
+               }]
+           };
+           const dioData = {
+                labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+                datasets: [{
+                    label: 'Liquidità (€)', data: [205347, 278866],
+                    backgroundColor: [colorAttuale, colorOttimizzato],
+                    borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
+                }]
+            };
+
+        // ======================================
+        // CHART OPTIONS
+        // ======================================
+        const barChartOptions = {
+             responsive: true, maintainAspectRatio: false, indexAxis: 'x',
+             scales: { y: { beginAtZero: true, ticks: {} }, x: { grid: { display: false }} },
+             plugins: { legend: { display: false }, title: { display: false },
+                 tooltip: {
+                     callbacks: {
+                         label: function(context) {
+                             let label = context.dataset.label || ''; if (label) label += ': '; let value = context.parsed.y;
+                             if (context.dataset.label.includes('(gg)')) { label += formatNumber(value, 0) + ' gg'; }
+                             else if (context.dataset.label.includes('(%)')) { label += formatPercentage(value); }
+                             else { label += formatCurrency(value, 0); }
+                             return label;
+                         }
+                     }
+                 }
+             },
+             animation: { duration: 400 }
+         };
+         const utileNettoOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, ticks: { callback: function(v) { return formatCurrency(v, 0); } } } } };
+         const ebitdaMarginOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, suggestedMin: 0, ticks: { callback: function(v) { return formatPercentage(v); } } } } };
+         const cccOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, title: {display: true, text: 'Euro'}, ticks: { callback: function(v) { return formatCurrency(v, 0); } } } } };
+         const dioOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, title: {display: true, text: 'Euro'}, ticks: { callback: function(v) { return formatCurrency(v, 0); } } } } };
+
+        // ======================================
+        // CHART INITIALIZATION & OTHER SCRIPTS
+        // ======================================
+        document.addEventListener('DOMContentLoaded', function() {
+             console.log("Initializing scripts for Bilancio Plus Sardiniae Ars (Embedded)...");
+             // --- Initialize Charts ---
+             try { initChart('utileNettoChart', 'bar', utileNettoData, utileNettoOptions); } catch(e) { console.error("Errore init utileNettoChart:", e); }
+             try { initChart('ebitdaMarginChart', 'bar', ebitdaMarginData, ebitdaMarginOptions); } catch(e) { console.error("Errore init ebitdaMarginChart:", e); }
+             try { initChart('cccChart', 'bar', cccData, cccOptions); } catch(e) { console.error("Errore init cccChart:", e); }
+             try { initChart('dioChart', 'bar', dioData, dioOptions); } catch(e) { console.error("Errore init dioChart:", e); }
+
+             // --- Other Page Scripts ---
+             document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+             const footerYear = document.getElementById('currentYearFooterReport');
+             if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+             const irpScoreValue = 96.79; // Sardiniae Ars IRP (Valore noto)
+             const irpHeaderBadge = document.getElementById('irp-header-badge');
+             if(irpHeaderBadge) {
+                 let badgeClass = 'bg-warning text-dark';
+                 if (irpScoreValue >= 71) badgeClass = 'bg-success'; else if (irpScoreValue < 51) badgeClass = 'bg-danger';
+                 irpHeaderBadge.className = `badge ${badgeClass} me-3`;
+                 irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
+             } else { console.warn("Elemento 'irp-header-badge' non trovato.") }
+
+             if (typeof window.logout !== 'function') { window.logout = function() { console.log("Logout placeholder"); } }
+             if (typeof window.printDocument !== 'function') { window.printDocument = function() { window.print(); } }
+             console.log("All scripts initialization attempt complete (Embedded).");
+         });
+    </script>
+     <!-- Script ChatNode -->
+     <scan-chat data-bot-id="d66c5a5b-02b0-4cdc-bf13-7dce7246429f"></scan-chat>
+     <script src="../js/bundle.js"></script>
+
     <scan-chat data-bot-id="aa6ba51a-dad9-41aa-ab1d-468e220feb57"></scan-chat>
     <script src="./js/bundle.js"></script>
 </body>

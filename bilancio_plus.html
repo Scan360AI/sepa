@@ -13,18 +13,16 @@
     <link href="../css/print.css" rel="stylesheet" media="print">
     <!-- Stili Incorporati -->
     <style>
-        /* Copia/Incolla stili da versione precedente qui... */
-         :root {
+        :root {
             --primary: #191970; --secondary: #4a69bd; --success: #4CAF50;
             --warning: #FFC107; --danger: #F44336; --info: #0dcaf0;
             --light: #f8f9fa; --dark: #343a40; --white: #ffffff;
             --text-primary: #212529; --text-secondary: #6c757d;
             --card-bg: var(--white); --card-border: #dee2e6;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            /* Nuovi colori per i grafici */
-            --color-attuale: rgba(74, 105, 189, 0.7);       /* Blu secondario */
+            --color-attuale: rgba(74, 105, 189, 0.7);
             --color-attuale-border: rgba(74, 105, 189, 1);
-            --color-ottimizzato: rgba(76, 175, 80, 0.7);    /* Verde successo */
+            --color-ottimizzato: rgba(76, 175, 80, 0.7);
             --color-ottimizzato-border: rgba(76, 175, 80, 1);
         }
         html, body { height: 100%; overflow-x: hidden; font-family: 'Titillium Web', sans-serif; background-color: #f4f8fb; }
@@ -62,598 +60,363 @@
     </style>
     <!-- Chart.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
 <body>
-    <div class="wrapper">
-        <!-- Sidebar -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>SCAN360</h3>
-                <p>Analisi Finanziaria Avanzata</p>
-            </div>
 
-            <ul class="list-unstyled components">
-                <li>
-                    <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
-                </li>
-                <li>
-                    <a href="#reportSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <i class="fas fa-file-alt"></i> Report
-                    </a>
-                    <ul class="collapse list-unstyled" id="reportSubmenu">
-                        <li>
-                            <a href="./report/bilancio_base.html">Bilancio Base</a>
-                        </li>
-                        <li class="active">
-                            <a href="./report/bilancio_plus.html">Bilancio Plus</a>
-                        </li>
-                        <li>
-                            <a href="./report/analisi_settoriale.html">Analisi Settoriale</a>
-                        </li>
-                        <li>
-                            <a href="./report/rating_bancario.html">Rating Bancario</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="./aziende.html"><i class="fas fa-building"></i> Aziende</a>
-                </li>
-                <li>
-                    <a href="./impostazioni.html"><i class="fas fa-cog"></i> Impostazioni</a>
-                </li>
-                <li>
-                    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </li>
-            </ul>
-
-            <div class="sidebar-footer">
-                <p>SCAN360 &copy; <span id="currentYearSidebar">2023</span></p>
-            </div>
-        </nav>
-
-        <!-- Page Content -->
-        <div id="content">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span>Menu</span>
-                    </button>
-                    <div class="ml-auto">
-                        <button class="btn btn-outline-secondary" onclick="printDocument()">
-                            <i class="fas fa-print"></i> Stampa
-                        </button>
-                    </div>
-                </div>
-            </nav>
-
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Bilancio Plus</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
-                                <li class="breadcrumb-item">Report</li>
-                                <li class="breadcrumb-item active">Bilancio Plus</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content">
-                <div class="container-fluid">
-                    <!-- Company Info Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">Informazioni Aziendali</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p><strong>Ragione Sociale:</strong> SEPA S.r.l. (Società Edile Produzione Asfalti S.r.l.)</p>
-                                    <p><strong>Settore:</strong> Fabbricazione di prodotti di base per la copertura stradale (ATECO 19.20.40)</p>
-                                    <p><strong>Sede:</strong> Salerno (SA), Campania</p>
-                                    <p><strong>Dipendenti:</strong> 14</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p><strong>Fatturato:</strong> €4.301.307</p>
-                                    <p><strong>Anno di riferimento:</strong> 2024</p>
-                                    <p><strong>Tipo di business:</strong> Industrial player nel mercato B2B</p>
-                                    <p><strong>Data elaborazione:</strong> 11/08/2025</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Executive Summary Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">Executive Summary</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h6>Profilo Economico</h6>
-                                    <ul class="list-unstyled">
-                                        <li><i class="fas fa-arrow-down text-danger"></i> <strong>Ricavi:</strong> €4.301.307 (-13,20% rispetto al periodo precedente)</li>
-                                        <li><i class="fas fa-arrow-up text-success"></i> <strong>EBITDA:</strong> €859.828 (19,99% sui ricavi)</li>
-                                        <li><i class="fas fa-arrow-up text-success"></i> <strong>EBIT:</strong> €562.142 (13,07% sui ricavi)</li>
-                                        <li><i class="fas fa-arrow-down text-danger"></i> <strong>Utile netto:</strong> €22.413 (0,52% sui ricavi)</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6>Profilo Patrimoniale e Finanziario</h6>
-                                    <ul class="list-unstyled">
-                                        <li><i class="fas fa-check text-success"></i> <strong>Patrimonio netto:</strong> €6.150.876</li>
-                                        <li><i class="fas fa-check text-success"></i> <strong>PFN:</strong> €297.772</li>
-                                        <li><i class="fas fa-check text-success"></i> <strong>PFN/EBITDA:</strong> 0,35 (eccellente)</li>
-                                        <li><i class="fas fa-exclamation-triangle text-warning"></i> <strong>Copertura immobilizzazioni:</strong> 0,87 (adeguato)</li>
-                                        <li><i class="fas fa-times text-danger"></i> <strong>Ciclo del circolante:</strong> 301 giorni (critico)</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <div class="alert alert-warning">
-                                        <strong>Valutazione complessiva:</strong> SEPA S.r.l. presenta un paradosso economico-finanziario caratterizzato da un'eccellente marginalità operativa che non si traduce in adeguata generazione di cassa a causa di un ciclo del circolante gravemente inefficiente. Il Leanus Score "5 - Negativo" (0,70) e lo Z-Score di Altman in zona grigia (2,55) evidenziano un profilo di rischio complessivamente elevato (IRP: 55,87/100, classe D+) che richiede interventi strutturali immediati.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Key Indicators Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">Indicatori Chiave</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <table class="table table-sm table-bordered">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th>Indicatore</th>
-                                                <th>Valore</th>
-                                                <th>Valutazione</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>EBITDA Margin</td>
-                                                <td>19,99%</td>
-                                                <td><span class="badge badge-success">Ottimo</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>PFN/EBITDA</td>
-                                                <td>0,35</td>
-                                                <td><span class="badge badge-success">Eccellente</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Interest Coverage Ratio</td>
-                                                <td>3,01</td>
-                                                <td><span class="badge badge-warning">Adeguato</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Debt/Equity (D/E)</td>
-                                                <td>0,05</td>
-                                                <td><span class="badge badge-success">Ottimo</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>ROI</td>
-                                                <td>8,72%</td>
-                                                <td><span class="badge badge-success">Buono</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-md-6">
-                                    <table class="table table-sm table-bordered">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th>Indicatore</th>
-                                                <th>Valore</th>
-                                                <th>Valutazione</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Ciclo del circolante</td>
-                                                <td>301 giorni</td>
-                                                <td><span class="badge badge-danger">Critico</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>DSO (giorni crediti)</td>
-                                                <td>532 giorni</td>
-                                                <td><span class="badge badge-danger">Patologico</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Liquidità/Ricavi</td>
-                                                <td>0,74%</td>
-                                                <td><span class="badge badge-danger">Critico</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Leanus Score</td>
-                                                <td>0,70</td>
-                                                <td><span class="badge badge-danger">Negativo</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Z-Score di Altman</td>
-                                                <td>2,55</td>
-                                                <td><span class="badge badge-warning">Zona grigia</span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Critical Areas Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">Aree Critiche e Opportunità di Ottimizzazione</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h6>Principali Criticità</h6>
-                                    <ul>
-                                        <li><strong>Leanus Score estremamente negativo (0,70)</strong> con categoria "STUCK"</li>
-                                        <li><strong>Riduzione significativa dei ricavi</strong> (-13,20% rispetto al periodo precedente)</li>
-                                        <li><strong>Ciclo del circolante patologico</strong> (301 giorni)</li>
-                                        <li><strong>Liquidità critica</strong> (€32.016, pari solo allo 0,74% dei ricavi)</li>
-                                        <li><strong>DSO anomalo</strong> (532 giorni)</li>
-                                        <li><strong>Oneri finanziari</strong> sproporzionati (€187.002, 56,70% dei debiti finanziari medi)</li>
-                                        <li><strong>ROE marginale</strong> (0,36%, inadeguato al rischio d'impresa)</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6>Opportunità di Ottimizzazione</h6>
-                                    <ul>
-                                        <li><strong>Revisione politiche di ammortamento</strong></li>
-                                        <li><strong>Capitalizzazione di costi di sviluppo</strong></li>
-                                        <li><strong>Affinamento della valutazione delle rimanenze</strong></li>
-                                        <li><strong>Ottimizzazione degli accantonamenti</strong></li>
-                                        <li><strong>Riclassificazione di poste patrimoniali</strong></li>
-                                        <li><strong>Revisione del cut-off di fine esercizio</strong></li>
-                                        <li><strong>Ottimizzazione della PFN</strong></li>
-                                        <li><strong>Affinamento della disclosure in nota integrativa</strong></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Optimization Proposals Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">Proposte di Ottimizzazione</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="accordion" id="optimizationAccordion">
-                                <!-- Optimization 1 -->
-                                <div class="card">
-                                    <div class="card-header" id="headingOne">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                1. Affinamento delle politiche di ammortamento
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#optimizationAccordion">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <p><strong>Situazione attuale:</strong> Ammortamenti totali di €297.686 (6,92% dei ricavi)</p>
-                                                    <p><strong>Intervento proposto:</strong></p>
-                                                    <ul>
-                                                        <li>Riesame della vita utile residua degli impianti, considerando l'evoluzione tecnologica e le condizioni operative effettive</li>
-                                                        <li>Riduzione ponderata delle aliquote di ammortamento del 10-15% per le immobilizzazioni materiali rilevanti</li>
-                                                    </ul>
-                                                    <p><strong>Base normativa:</strong> OIC 16, par. 70-72 che consente la modifica delle aliquote di ammortamento in funzione del deterioramento fisico e dell'obsolescenza</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="alert alert-info">
-                                                        <p><strong>Impatto potenziale:</strong></p>
-                                                        <p>Riduzione degli ammortamenti di €29.000-€44.000</p>
-                                                        <p>Miglioramento dell'EBIT: +5,2%-7,8%</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Optimization 2 -->
-                                <div class="card">
-                                    <div class="card-header" id="headingTwo">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                2. Capitalizzazione di costi di sviluppo e innovazione tecnologica
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#optimizationAccordion">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <p><strong>Situazione attuale:</strong> Immobilizzazioni immateriali limitate (€3.320, 0,1% del totale immobilizzato)</p>
-                                                    <p><strong>Intervento proposto:</strong></p>
-                                                    <ul>
-                                                        <li>Identificazione di costi di ricerca applicata e sviluppo con utilità pluriennale</li>
-                                                        <li>Capitalizzazione dei costi sostenuti per lo sviluppo di nuovi processi produttivi nel settore degli asfalti</li>
-                                                    </ul>
-                                                    <p><strong>Base normativa:</strong> Art. 2426, punto 5, c.c. e OIC 24, paragrafi 36-42, che consentono la capitalizzazione dei costi di sviluppo se relativi a progetti realizzabili</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="alert alert-info">
-                                                        <p><strong>Impatto potenziale:</strong></p>
-                                                        <p>Incremento delle immobilizzazioni immateriali di €80.000-€120.000</p>
-                                                        <p>Miglioramento dell'EBIT: +14,2%-21,3%</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Optimization 3 -->
-                                <div class="card">
-                                    <div class="card-header" id="headingThree">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                3. Affinamento della valutazione delle rimanenze
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#optimizationAccordion">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <p><strong>Situazione attuale:</strong> Rimanenze per €552.778 con una variazione significativa (+€206.742)</p>
-                                                    <p><strong>Intervento proposto:</strong></p>
-                                                    <ul>
-                                                        <li>Affinamento del metodo LIFO/FIFO/costo medio ponderato in base all'andamento dei prezzi delle materie prime</li>
-                                                        <li>Revisione delle stime di obsolescenza e del valore di mercato</li>
-                                                    </ul>
-                                                    <p><strong>Base normativa:</strong> OIC 13, paragrafi 50-60, che definisce i criteri di valutazione delle rimanenze</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="alert alert-info">
-                                                        <p><strong>Impatto potenziale:</strong></p>
-                                                        <p>Ottimizzazione del valore delle rimanenze finali di €40.000-€60.000</p>
-                                                        <p>Miglioramento dell'EBIT: +7,1%-10,7%</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Optimization 4 -->
-                                <div class="card">
-                                    <div class="card-header" id="headingFour">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                                4. Ottimizzazione degli accantonamenti
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#optimizationAccordion">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <p><strong>Situazione attuale:</strong> Incremento fondi di €31.040 (0,72% dei ricavi)</p>
-                                                    <p><strong>Intervento proposto:</strong></p>
-                                                    <ul>
-                                                        <li>Analisi dettagliata dei rischi effettivi (controversie, garanzie, ecc.)</li>
-                                                        <li>Ricalcolo degli accantonamenti sulla base di parametri oggettivi</li>
-                                                    </ul>
-                                                    <p><strong>Base normativa:</strong> OIC 31, paragrafi 13-27, che definisce le condizioni per la rilevazione dei fondi rischi e oneri</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="alert alert-info">
-                                                        <p><strong>Impatto potenziale:</strong></p>
-                                                        <p>Riduzione degli accantonamenti di €5.000-€10.000</p>
-                                                        <p>Miglioramento dell'EBIT: +0,9%-1,8%</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Optimization 5 -->
-                                <div class="card">
-                                    <div class="card-header" id="headingFive">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                                5. Ottimizzazione del capitale circolante
-                                            </button>
-                                        </h2>
-                                    </div>
-                                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#optimizationAccordion">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-8">
-                                                    <p><strong>Situazione attuale:</strong> DSO 532 giorni, DPO 326 giorni, DIO 95 giorni, Ciclo del circolante 301 giorni</p>
-                                                    <p><strong>Intervento proposto:</strong></p>
-                                                    <ul>
-                                                        <li>Revisione delle politiche di credito/debito commerciale</li>
-                                                        <li>Implementazione di un sistema strutturato di credit management</li>
-                                                        <li>Ottimizzazione della gestione delle scorte</li>
-                                                    </ul>
-                                                    <p><strong>Base normativa:</strong> OIC 15, 19 e 13 (crediti, debiti e rimanenze)</p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="alert alert-info">
-                                                        <p><strong>Impatto potenziale:</strong></p>
-                                                        <p>Riduzione del capitale circolante di €150.000-€200.000</p>
-                                                        <p>Riduzione del ciclo del circolante di 10-15 giorni</p>
-                                                        <p>Miglioramento della PFN: -6,7%-10,1%</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Impact Simulation Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">Simulazione di Impatto sugli Indicatori Chiave</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>Indicatore</th>
-                                            <th>Pre-ottimizzazione</th>
-                                            <th>Post-ottimizzazione</th>
-                                            <th>Variazione</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>EBITDA</td>
-                                            <td>€859.828</td>
-                                            <td>€904.828 - €923.828</td>
-                                            <td class="text-success">+5,2%-7,4%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>EBIT</td>
-                                            <td>€562.142</td>
-                                            <td>€637.142 - €667.142</td>
-                                            <td class="text-success">+13,3%-18,7%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Utile netto</td>
-                                            <td>€22.413</td>
-                                            <td>€72.413 - €102.413</td>
-                                            <td class="text-success">+223,1%-356,9%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PFN</td>
-                                            <td>€297.772</td>
-                                            <td>€267.772 - €277.772</td>
-                                            <td class="text-success">-6,7%-10,1%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>PFN/EBITDA</td>
-                                            <td>0,35</td>
-                                            <td>0,29 - 0,31</td>
-                                            <td class="text-success">-11,4%-17,1%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Copertura immob.</td>
-                                            <td>0,87</td>
-                                            <td>0,90 - 0,92</td>
-                                            <td class="text-success">+3,4%-5,7%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ciclo del circolante</td>
-                                            <td>301 gg</td>
-                                            <td>286 - 291 gg</td>
-                                            <td class="text-success">-3,3%-5,0%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Leanus Score</td>
-                                            <td>0,70</td>
-                                            <td>1,20 - 1,60</td>
-                                            <td class="text-success">+71,4%-128,6%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Charts Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">Visualizzazione Grafica degli Impatti</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <h6 class="text-center">EBITDA (€)</h6>
-                                    <div class="chart-container" style="position: relative; height:200px;">
-                                        <canvas id="ebitdaChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <h6 class="text-center">EBITDA Margin (%)</h6>
-                                    <div class="chart-container" style="position: relative; height:200px;">
-                                        <canvas id="ebitdaMarginChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <h6 class="text-center">PFN/EBITDA</h6>
-                                    <div class="chart-container" style="position: relative; height:200px;">
-                                        <canvas id="pfnEbitdaChart"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <h6 class="text-center">Leanus Score</h6>
-                                    <div class="chart-container" style="position: relative; height:200px;">
-                                        <canvas id="magazzinoChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Conclusions Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title">Conclusioni e Raccomandazioni</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h6>Sintesi degli interventi prioritari</h6>
-                                    <ol>
-                                        <li><strong>Affinamento delle politiche di ammortamento:</strong> impatto potenziale fino a €44.000</li>
-                                        <li><strong>Capitalizzazione di costi di sviluppo:</strong> impatto potenziale fino a €120.000</li>
-                                        <li><strong>Ottimizzazione della valutazione delle rimanenze:</strong> impatto potenziale fino a €60.000</li>
-                                        <li><strong>Affinamento del working capital management:</strong> impatto potenziale fino a €200.000</li>
-                                    </ol>
-                                    
-                                    <h6 class="mt-4">Considerazioni finali</h6>
-                                    <p>Gli interventi proposti consentirebbero di ottimizzare il profilo economico-finanziario di SEPA S.r.l. nel pieno rispetto della normativa vigente, migliorando significativamente gli indicatori di redditività e, in parte, la percezione di solidità aziendale da parte degli stakeholder finanziari.</p>
-                                    
-                                    <p>Tuttavia, è importante sottolineare che gli interventi contabili proposti rappresentano solo il primo passo di un necessario percorso di ristrutturazione operativa. Il paradosso economico-finanziario dell'azienda - caratterizzato da un'eccellente marginalità operativa che non si traduce in adeguata generazione di cassa a causa di un ciclo del circolante gravemente inefficiente - richiede interventi strutturali sulla gestione del credito commerciale, attualmente a livelli patologici (532 giorni).</p>
-                                    
-                                    <p>L'attuazione di un piano strategico di medio termine focalizzato sul riequilibrio del capitale circolante e sul ripristino del trend di crescita dei ricavi risulta imprescindibile per garantire la sostenibilità del business model nel lungo periodo.</p>
-                                    
-                                    <div class="alert alert-primary mt-3">
-                                        <strong>Nota metodologica:</strong> La presente relazione è stata elaborata esclusivamente sulla base delle informazioni contenute nel Report Leanus e seguendo il framework metodologico del Manuale Kitzanos. Gli interventi proposti sono formulati nel rispetto della normativa vigente e dei principi contabili nazionali e internazionali, configurandosi come legittimi affinamenti delle rappresentazioni contabili e delle stime valutative consentite dal quadro normativo.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer class="main-footer">
-                <div class="float-right d-none d-sm-block">
-                    <b>Versione</b> 1.0.0
-                </div>
-                <strong id="currentYearFooter">© 2023 SCAN360 - Tutti i diritti riservati</strong>
-            </footer>
+    <!-- Sidebar Semplificata -->
+    <aside class="sidebar no-print">
+         <div class="sidebar-header">
+             <img src="assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;">
+            <h5>SEPA S.r.l.</h5>
         </div>
-    </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <li class="nav-item"> <a class="nav-link" href="index.html"> <i class="fas fa-home fa-fw"></i> Torna alla Home </a> </li>
+            <li class="nav-title">Sezioni Bilancio Plus</li>
+            <li class="nav-item"> <a class="nav-link" href="#summary"> <i class="fas fa-clipboard-list fa-fw"></i> Sintesi Attuale </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#optimization-areas"> <i class="fas fa-search-plus fa-fw"></i> Aree Ottimizzazione </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#optimization-proposals"> <i class="fas fa-cogs fa-fw"></i> Ipotesi Ottimizzazione </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#impact-summary"> <i class="fas fa-chart-pie fa-fw"></i> Impatto Complessivo </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#final-thoughts"> <i class="fas fa-gavel fa-fw"></i> Considerazioni Finali </a> </li>
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
 
-  <script>
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Analisi Finanziaria e Proposte di Ottimizzazione (Bilancio Plus)</h5>
+                <p class="mb-0">SEPA S.r.l. | <span class="report-date">Dati 2024</span></p>
+            </div>
+            <div class="header-controls d-flex align-items-center">
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> SEPA S.r.l. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">SEPA S.r.l.</span></h1>
+            <p class="text-center mb-0">Analisi Finanziaria e Proposte di Ottimizzazione (Bilancio Plus) | <span class="report-date">Dati 2024</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
+
+             <h2 class="section-title" id="optimization-analysis-title"><i class="fas fa-magic me-2"></i>Analisi Finanziaria e Proposte di Ottimizzazione</h2>
+
+            <!-- Sezione 1: Premessa -->
+            <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">1. Premessa e Profilo Aziendale</h5></div>
+                 <div class="card-body small">
+                     <p><strong>SEPA S.r.l. (Società Edile Produzione Asfalti S.r.l.)</strong> opera nel settore della fabbricazione di prodotti di base per la copertura stradale (ATECO 19.20.40), con sede a Salerno (SA) e 14 dipendenti. L'analisi si basa sui dati del bilancio 2024 che evidenziano un paradosso economico-finanziario: eccellente marginalità operativa che non si traduce in adeguata generazione di cassa.</p>
+                 </div>
+            </div>
+
+             <!-- Sezione 2: Sintesi Situazione Attuale -->
+             <div class="card mb-4 report-section" id="summary">
+                 <div class="card-header"><h5 class="mb-0">2. Sintesi della Situazione Attuale</h5></div>
+                 <div class="card-body small">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="card-title-small">2.1 Profilo Economico</h6>
+                            <ul class="list-styled">
+                                <li><strong>Ricavi:</strong> €4.301.307 (<span class="text-danger">-13,20%</span> vs periodo precedente)</li>
+                                <li><strong>EBITDA:</strong> €859.828 (19,99% sui Ricavi) (<span class="text-success">Eccellente</span>)</li>
+                                <li><strong>EBIT:</strong> €562.142 (13,07% sui Ricavi)</li>
+                                <li><strong>Utile netto:</strong> €22.413 (0,52% sui Ricavi) (<span class="text-danger">Marginale</span>)</li>
+                            </ul>
+                             <h6 class="card-title-small mt-3">2.2 Profilo Patrimoniale</h6>
+                            <ul class="list-styled">
+                                <li><strong>Patrimonio Netto:</strong> €6.150.876</li>
+                                <li><strong>PFN:</strong> €297.772 (<span class="text-success">Contenuta</span>)</li>
+                                <li><strong>Liquidità:</strong> €32.016 (<span class="text-danger">0,74% dei ricavi - Critico</span>)</li>
+                                <li><strong>PFN/EBITDA:</strong> 0,35 (<span class="badge bg-success">Eccellente</span>)</li>
+                                <li><strong>Leva (D/E):</strong> 0,05 (<span class="badge bg-success">Ottimo</span>)</li>
+                            </ul>
+                        </div>
+                         <div class="col-md-6">
+                             <h6 class="card-title-small">2.3 Profilo Finanziario</h6>
+                            <ul class="list-styled">
+                                <li><strong>Ciclo del circolante:</strong> 301 giorni (<span class="badge bg-danger">Patologico</span>)</li>
+                                <li><strong>DSO:</strong> 532 giorni (<span class="text-danger">Anomalo</span>)</li>
+                                <li><strong>DPO:</strong> 326 giorni</li>
+                                <li><strong>DIO:</strong> 95 giorni</li>
+                                <li><strong>Interest Coverage:</strong> 3,01 (<span class="text-warning">Adeguato</span>)</li>
+                            </ul>
+                             <h6 class="card-title-small mt-3">2.4 Indicatori di Rischio e Rating</h6>
+                             <ul class="list-styled">
+                                <li><strong>Leanus Score:</strong> "5 - Negativo" (0,70) (<span class="text-danger">Critico</span>)</li>
+                                <li><strong>Z-Score di Altman:</strong> 2,55 (<span class="badge bg-warning">Zona grigia</span>)</li>
+                                <li><strong>IRP:</strong> 55,87 (<span class="badge bg-warning">Categoria D+</span>)</li>
+                                <li><strong>ROE:</strong> 0,36% (<span class="badge bg-danger">Inadeguato</span>)</li>
+                             </ul>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+             <!-- Sezione 3: Aree di Potenziale Ottimizzazione -->
+             <div class="card mb-4 report-section" id="optimization-areas">
+                 <div class="card-header"><h5 class="mb-0">3. Analisi delle Aree di Potenziale Ottimizzazione</h5></div>
+                 <div class="card-body small">
+                      <div class="row">
+                          <div class="col-md-4">
+                              <h6 class="card-title-small">3.1 Area Economica</h6>
+                               <ul class="list-styled">
+                                   <li><i class="fas fa-check-circle text-success me-1"></i> EBITDA Margin: 19,99% (eccellente)</li>
+                                   <li><i class="fas fa-exclamation-triangle text-warning me-1"></i> Ammortamenti: €297.686 (6,92%)</li>
+                                   <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> Oneri finanziari: €187.002 (eccessivi)</li>
+                                   <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> Utile netto: Solo 0,52% dei ricavi</li>
+                                   <li><i class="fas fa-info-circle text-secondary me-1"></i> Accantonamenti: €31.040</li>
+                               </ul>
+                          </div>
+                           <div class="col-md-4">
+                               <h6 class="card-title-small">3.2 Area Patrimoniale</h6>
+                                <ul class="list-styled">
+                                    <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> Crediti: €6.266.177 (patologico)</li>
+                                    <li><i class="fas fa-info-circle text-secondary me-1"></i> Rimanenze: €552.778 (+€206.742)</li>
+                                    <li><i class="fas fa-check-circle text-success me-1"></i> Patrimonio Netto: €6.150.876 (solido)</li>
+                                    <li><i class="fas fa-exclamation-triangle text-warning me-1"></i> Immob. immateriali: €3.320 (sottoutilizzate)</li>
+                                </ul>
+                           </div>
+                            <div class="col-md-4">
+                                <h6 class="card-title-small">3.3 Area Finanziaria</h6>
+                                 <ul class="list-styled">
+                                     <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> Liquidità: €32.016 (critica)</li>
+                                     <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> DSO: 532 giorni (anomalo)</li>
+                                     <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> Ciclo circolante: 301gg (patologico)</li>
+                                     <li><i class="fas fa-check-circle text-success me-1"></i> PFN/EBITDA: 0,35 (eccellente)</li>
+                                 </ul>
+                            </div>
+                      </div>
+                 </div>
+            </div>
+
+             <!-- Sezione 4: Ipotesi di Ottimizzazione -->
+             <div class="card mb-4 report-section" id="optimization-proposals">
+                <div class="card-header"><h5 class="mb-0">4. Ipotesi di Ottimizzazione del Bilancio 2024</h5></div>
+                 <div class="card-body">
+                     <h6 class="card-title-small">4.1 Premessa Metodologica</h6>
+                     <p class="small">Le seguenti ipotesi sono formulate nel rispetto dei principi contabili nazionali (OIC) e del Codice Civile, con l'obiettivo di ottimizzare la rappresentazione della situazione aziendale mantenendo una rappresentazione veritiera e corretta.</p>
+
+                     <h6 class="card-title-small mt-4">4.2 Tabella Miglioramenti Proposti</h6>
+                     <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                              <thead class="table-light">
+                                  <tr>
+                                      <th>Voce/Indice</th>
+                                      <th>Situazione Attuale (2024)</th>
+                                      <th>Azione Suggerita</th>
+                                      <th>Effetto Previsto</th>
+                                      <th>Impatto Quantitativo</th>
+                                      <th>Principio/Norma</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><strong>Ammortamenti</strong></td>
+                                      <td>€297.686 (6,92% ric)</td>
+                                      <td>Revisione vita utile impianti (+10-15%)</td>
+                                      <td>Riduzione costi</td>
+                                      <td class="text-end"><span class="text-success">-€29.000/44.000</span> (costo)<br><span class="text-success">+5,2%-7,8%</span> EBIT</td>
+                                      <td>OIC 16, par. 70-72</td>
+                                  </tr>
+                                  <tr>
+                                      <td><strong>Capitalizzazione Costi</strong></td>
+                                      <td>Immob. immat. €3.320</td>
+                                      <td>Capitalizzazione costi sviluppo processi produttivi asfalti</td>
+                                      <td>Incremento EBIT</td>
+                                      <td class="text-end"><span class="text-success">+€80.000/120.000</span> (EBIT)<br><span class="text-success">+14,2%-21,3%</span></td>
+                                      <td>OIC 24, Art. 2426 c.c.</td>
+                                  </tr>
+                                  <tr>
+                                      <td><strong>Rimanenze</strong></td>
+                                      <td>€552.778 (+€206.742)</td>
+                                      <td>Affinamento metodo valutazione (LIFO/FIFO)</td>
+                                      <td>Ottimizzazione valore</td>
+                                      <td class="text-end"><span class="text-success">+€40.000/60.000</span> (rim.)<br><span class="text-success">+7,1%-10,7%</span> EBIT</td>
+                                      <td>OIC 13, par. 50-60</td>
+                                  </tr>
+                                   <tr>
+                                      <td><strong>Accantonamenti</strong></td>
+                                      <td>€31.040 (0,72% ric)</td>
+                                      <td>Ricalcolo basato su parametri oggettivi</td>
+                                      <td>Riduzione accantonamenti</td>
+                                      <td class="text-end"><span class="text-success">-€5.000/10.000</span><br><span class="text-success">+0,9%-1,8%</span> EBIT</td>
+                                      <td>OIC 31, par. 13-27</td>
+                                  </tr>
+                                  <tr>
+                                      <td><strong>Capitale Circolante</strong></td>
+                                      <td>DSO 532gg, DPO 326gg</td>
+                                      <td>Credit management strutturato</td>
+                                      <td>Riduzione crediti</td>
+                                      <td class="text-end"><span class="text-success">-€150.000/200.000</span> CCN<br><span class="text-success">-10/15gg</span> ciclo</td>
+                                      <td>OIC 15, 19</td>
+                                  </tr>
+                                   <tr>
+                                      <td><strong>Oneri Finanziari</strong></td>
+                                      <td>€187.002 (56,70% debiti)</td>
+                                      <td>Rinegoziazione condizioni bancarie</td>
+                                      <td>Riduzione oneri</td>
+                                      <td class="text-end"><span class="text-success">-€20.000/30.000</span><br><span class="text-success">+89%-134%</span> utile</td>
+                                      <td>Gestionale</td>
+                                  </tr>
+                                   <tr>
+                                      <td><strong>Nota Integrativa</strong></td>
+                                      <td>Standard</td>
+                                      <td>Enhanced disclosure su credit management</td>
+                                      <td>Maggiore trasparenza</td>
+                                      <td class="text-end"><span class="text-success">Qualitativo</span></td>
+                                      <td>OIC 12</td>
+                                  </tr>
+                              </tbody>
+                         </table>
+                     </div>
+
+                     <!-- Sezione Grafici Impatto -->
+                     <h6 class="card-title-small mt-5">5.0 Visualizzazione Impatto Ottimizzazioni</h6>
+                     <div class="row">
+                         <div class="col-lg-6 col-md-6 mb-3">
+                            <h6 class="text-center small">Grafico 5.1: EBITDA (€) - Prima vs Dopo</h6>
+                            <div class="chart-container"><canvas id="ebitdaChart"></canvas></div>
+                         </div>
+                         <div class="col-lg-6 col-md-6 mb-3">
+                            <h6 class="text-center small">Grafico 5.2: EBITDA Margin (%) - Prima vs Dopo</h6>
+                            <div class="chart-container"><canvas id="ebitdaMarginChart"></canvas></div>
+                         </div>
+                         <div class="col-lg-6 col-md-6 mb-3">
+                            <h6 class="text-center small">Grafico 5.3: PFN/EBITDA - Prima vs Dopo</h6>
+                            <div class="chart-container"><canvas id="pfnEbitdaChart"></canvas></div>
+                         </div>
+                         <div class="col-lg-6 col-md-6 mb-3">
+                             <h6 class="text-center small">Grafico 5.4: Leanus Score - Prima vs Dopo</h6>
+                             <div class="chart-container"><canvas id="leanusChart"></canvas></div>
+                         </div>
+                     </div>
+
+                     <h6 class="card-title-small mt-4">4.3 Motivazioni dei Miglioramenti Proposti (Dettaglio)</h6>
+                      <div class="accordion small" id="motivationsAccordion">
+                          <!-- Ammortamenti -->
+                          <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv1"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv1" aria-expanded="false" aria-controls="collapseMotiv1">4.3.1 Affinamento delle politiche di ammortamento</button></h2>
+                              <div id="collapseMotiv1" class="accordion-collapse collapse" aria-labelledby="headingMotiv1" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Ammortamenti totali di €297.686 (6,92% dei ricavi), incidenza significativa sul risultato operativo.<br><strong>Soluzione Proposta:</strong> Riesame della vita utile residua degli impianti considerando l'evoluzione tecnologica e le condizioni operative effettive. Riduzione ponderata delle aliquote del 10-15% per le immobilizzazioni materiali rilevanti.<br><strong>Ratio/Logica:</strong> Gli impianti per la produzione di asfalti hanno dimostrato una vita utile superiore alle stime iniziali grazie alla manutenzione preventiva e alle condizioni operative ottimali.<br><strong>Benefici Attesi:</strong> Riduzione degli ammortamenti di €29.000-€44.000, miglioramento dell'EBIT del 5,2%-7,8% (<span class="text-success">impatto EBIT +€29.000/44.000</span>).<br><strong>Normativa Riferimento:</strong> OIC 16, par. 70-72 che consente la modifica delle aliquote in funzione del deterioramento fisico e dell'obsolescenza.</div></div>
+                          </div>
+                          <!-- Capitalizzazione -->
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv2"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv2" aria-expanded="false" aria-controls="collapseMotiv2">4.3.2 Capitalizzazione costi di sviluppo e innovazione tecnologica</button></h2>
+                              <div id="collapseMotiv2" class="accordion-collapse collapse" aria-labelledby="headingMotiv2" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Immobilizzazioni immateriali limitate (€3.320, 0,1% del totale immobilizzato) nonostante significativi investimenti in R&D per nuovi processi produttivi.<br><strong>Soluzione Proposta:</strong> Identificazione e capitalizzazione dei costi sostenuti per lo sviluppo di nuovi processi produttivi nel settore degli asfalti, inclusi studi per miscele innovative e processi eco-sostenibili.<br><strong>Ratio/Logica:</strong> I costi di sviluppo hanno utilità pluriennale dimostrata e generano benefici economici futuri attraverso maggiore efficienza produttiva e differenziazione di prodotto.<br><strong>Benefici Attesi:</strong> Incremento delle immobilizzazioni immateriali di €80.000-€120.000, miglioramento dell'EBIT del 14,2%-21,3% (<span class="text-success">impatto EBIT +€80.000/120.000</span>).<br><strong>Normativa Riferimento:</strong> Art. 2426, punto 5, c.c. e OIC 24, paragrafi 36-42.</div></div>
+                          </div>
+                           <!-- Rimanenze -->
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv3"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv3" aria-expanded="false" aria-controls="collapseMotiv3">4.3.3 Affinamento della valutazione delle rimanenze</button></h2>
+                              <div id="collapseMotiv3" class="accordion-collapse collapse" aria-labelledby="headingMotiv3" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Rimanenze per €552.778 con variazione significativa (+€206.742), opportunità di ottimizzazione del metodo valutativo.<br><strong>Soluzione Proposta:</strong> Affinamento del metodo LIFO/FIFO/costo medio ponderato in base all'andamento dei prezzi delle materie prime (bitume, inerti). Revisione delle stime di obsolescenza.<br><strong>Ratio/Logica:</strong> L'andamento volatile dei prezzi del bitume suggerisce l'adozione del metodo più appropriato per riflettere il valore effettivo delle scorte.<br><strong>Benefici Attesi:</strong> Ottimizzazione del valore delle rimanenze finali di €40.000-€60.000, miglioramento dell'EBIT del 7,1%-10,7% (<span class="text-success">impatto rimanenze +€40.000/60.000</span>).<br><strong>Normativa Riferimento:</strong> OIC 13, paragrafi 50-60.</div></div>
+                          </div>
+                          <!-- Accantonamenti -->
+                          <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv4"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv4" aria-expanded="false" aria-controls="collapseMotiv4">4.3.4 Ottimizzazione degli accantonamenti</button></h2>
+                              <div id="collapseMotiv4" class="accordion-collapse collapse" aria-labelledby="headingMotiv4" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Incremento fondi di €31.040 (0,72% dei ricavi), possibile eccesso di prudenza valutativa.<br><strong>Soluzione Proposta:</strong> Analisi dettagliata dei rischi effettivi (controversie, garanzie prodotto). Ricalcolo degli accantonamenti sulla base di parametri oggettivi e serie storiche.<br><strong>Ratio/Logica:</strong> Allineare gli accantonamenti ai rischi effettivi evitando eccessi di prudenza che penalizzano il risultato economico.<br><strong>Benefici Attesi:</strong> Riduzione degli accantonamenti di €5.000-€10.000, miglioramento dell'EBIT dello 0,9%-1,8% (<span class="text-success">impatto EBIT +€5.000/10.000</span>).<br><strong>Normativa Riferimento:</strong> OIC 31, paragrafi 13-27.</div></div>
+                          </div>
+                          <!-- Capitale Circolante -->
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv5"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv5" aria-expanded="false" aria-controls="collapseMotiv5">4.3.5 Ottimizzazione del capitale circolante</button></h2>
+                              <div id="collapseMotiv5" class="accordion-collapse collapse" aria-labelledby="headingMotiv5" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> DSO 532 giorni (patologico), DPO 326 giorni, ciclo del circolante 301 giorni. Crediti commerciali €6.266.177 rappresentano il problema principale.<br><strong>Soluzione Proposta:</strong> Implementazione credit management strutturato, revisione politiche di credito, possibile cessione pro-soluto crediti più datati, ottimizzazione gestione scorte.<br><strong>Ratio/Logica:</strong> Il DSO anomalo indica gravi inefficienze nella gestione del credito che immobilizzano risorse e generano oneri finanziari.<br><strong>Benefici Attesi:</strong> Riduzione del capitale circolante di €150.000-€200.000, riduzione ciclo del circolante di 10-15 giorni, miglioramento PFN del 6,7%-10,1% (<span class="text-success">impatto CCN -€150.000/200.000</span>).<br><strong>Normativa Riferimento:</strong> OIC 15 (crediti), OIC 19 (debiti), principi di finanza aziendale.</div></div>
+                          </div>
+                          <!-- Oneri Finanziari -->
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv6"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv6" aria-expanded="false" aria-controls="collapseMotiv6">4.3.6 Ottimizzazione oneri finanziari</button></h2>
+                              <div id="collapseMotiv6" class="accordion-collapse collapse" aria-labelledby="headingMotiv6" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Oneri finanziari €187.002 (56,70% dei debiti finanziari medi), incidenza sproporzionata che erode completamente il risultato operativo.<br><strong>Soluzione Proposta:</strong> Rinegoziazione condizioni bancarie, consolidamento linee di credito, valutazione strumenti alternativi di finanziamento.<br><strong>Ratio/Logica:</strong> L'eccellente EBITDA margin e il basso leverage consentono di negoziare condizioni più favorevoli con gli istituti di credito.<br><strong>Benefici Attesi:</strong> Riduzione oneri finanziari di €20.000-€30.000, incremento utile netto del 89%-134% (<span class="text-success">impatto oneri -€20.000/30.000</span>).<br><strong>Normativa Riferimento:</strong> Intervento gestionale, non contabile.</div></div>
+                          </div>
+                      </div>
+                 </div>
+            </div>
+
+             <!-- Sezione 6: Impatto Complessivo -->
+              <div class="card mb-4 report-section" id="impact-summary">
+                 <div class="card-header"><h5 class="mb-0">6. Impatto Complessivo delle Ottimizzazioni Proposte</h5></div>
+                 <div class="card-body small">
+                      <div class="row">
+                         <div class="col-md-4">
+                             <h6 class="card-title-small">6.1 Impatto Indici Economici</h6>
+                             <ul class="list-styled">
+                                 <li><strong>EBITDA:</strong> <span class="text-success">~€904.828-923.828</span> (da €859.828, +5,2%-7,4%)</li>
+                                 <li><strong>EBITDA Margin:</strong> <span class="text-success">~21,0%-21,5%</span> (da 19,99%)</li>
+                                 <li><strong>EBIT:</strong> <span class="text-success">~€637.142-667.142</span> (da €562.142, +13,3%-18,7%)</li>
+                                 <li><strong>Utile netto:</strong> <span class="text-success">~€72.413-102.413</span> (da €22.413, +223%-357%)</li>
+                             </ul>
+                         </div>
+                         <div class="col-md-4">
+                              <h6 class="card-title-small">6.2 Impatto Indici Patrimoniali/Finanziari</h6>
+                              <ul class="list-styled">
+                                 <li><strong>PFN:</strong> <span class="text-success">~€267.772-277.772</span> (da €297.772, -6,7%-10,1%)</li>
+                                 <li><strong>PFN/EBITDA:</strong> <span class="text-success">~0,29-0,31</span> (da 0,35)</li>
+                                 <li><strong>Capitale Circolante:</strong> <span class="text-success">Riduzione €150-200k</span></li>
+                                 <li><strong>Ciclo circolante:</strong> <span class="text-success">~286-291gg</span> (da 301gg)</li>
+                             </ul>
+                         </div>
+                          <div class="col-md-4">
+                              <h6 class="card-title-small">6.3 Impatto Rating/Rischio</h6>
+                               <ul class="list-styled">
+                                  <li><strong>Leanus Score:</strong> <span class="text-success">~1,20-1,60</span> (da 0,70, +71%-129%)</li>
+                                  <li><strong>Copertura immob.:</strong> <span class="text-success">~0,90-0,92</span> (da 0,87)</li>
+                                  <li><strong>ROE:</strong> <span class="text-success">~1,18%-1,67%</span> (da 0,36%)</li>
+                                  <li><strong>Interest Coverage:</strong> <span class="text-success">~3,5-4,0x</span> (da 3,01x)</li>
+                               </ul>
+                          </div>
+                      </div>
+                 </div>
+            </div>
+
+            <!-- Sezione 7: Conclusioni -->
+            <div class="card mb-4 report-section" id="final-thoughts">
+                 <div class="card-header"><h5 class="mb-0">7. Considerazioni Finali e Raccomandazioni</h5></div>
+                 <div class="card-body small">
+                     <h6>Sintesi degli interventi prioritari</h6>
+                     <ol>
+                         <li><strong>Affinamento delle politiche di ammortamento:</strong> impatto potenziale fino a €44.000</li>
+                         <li><strong>Capitalizzazione di costi di sviluppo:</strong> impatto potenziale fino a €120.000</li>
+                         <li><strong>Ottimizzazione della valutazione delle rimanenze:</strong> impatto potenziale fino a €60.000</li>
+                         <li><strong>Affinamento del working capital management:</strong> impatto potenziale fino a €200.000</li>
+                     </ol>
+                     
+                     <p class="mt-3">Gli interventi proposti consentirebbero di ottimizzare il profilo economico-finanziario di SEPA S.r.l. nel pieno rispetto della normativa vigente, migliorando significativamente gli indicatori di redditività e la percezione di solidità aziendale da parte degli stakeholder finanziari.</p>
+                     
+                     <p>Tuttavia, è importante sottolineare che <span class="text-warning">gli interventi contabili proposti rappresentano solo il primo passo</span> di un necessario percorso di ristrutturazione operativa. Il paradosso economico-finanziario dell'azienda - caratterizzato da un'<span class="text-success">eccellente marginalità operativa</span> che non si traduce in adeguata generazione di cassa a causa di un <span class="text-danger">ciclo del circolante gravemente inefficiente</span> - richiede interventi strutturali sulla gestione del credito commerciale, attualmente a livelli patologici (532 giorni).</p>
+                     
+                     <p>L'attuazione di un <span class="text-primary">piano strategico di medio termine</span> focalizzato sul riequilibrio del capitale circolante e sul ripristino del trend di crescita dei ricavi risulta imprescindibile per garantire la sostenibilità del business model nel lungo periodo.</p>
+                     
+                     <div class="alert alert-info mt-4">
+                         <strong>Nota metodologica:</strong> La presente relazione è stata elaborata sulla base delle informazioni di bilancio 2024 e seguendo i principi contabili nazionali (OIC) e il Codice Civile. Gli interventi proposti sono formulati nel rispetto della normativa vigente, configurandosi come legittimi affinamenti delle rappresentazioni contabili e delle stime valutative consentite dal quadro normativo.
+                     </div>
+                 </div>
+            </div>
+
+        </div> <!-- /dashboard-container -->
+
+         <footer class="footer no-print">
+              <div class="container-fluid px-4">
+                  <div class="row">
+                      <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                           <span id="currentYearFooter"></span>
+                      </div>
+                      <div class="col-md-6 text-center text-md-end">
+                          Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a>
+                          <img src="assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2" style="height: 20px; vertical-align: middle;">
+                      </div>
+                  </div>
+              </div>
+          </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ### START SCRIPT JS EMBEDDED ### -->
+    <script>
         // ======================================
         // HELPER FUNCTIONS
         // ======================================
@@ -696,108 +459,133 @@
          }
 
         // ======================================
-        // CHART DATA (Bilancio Plus - Sardiniae Ars)
+        // CHART DATA (Bilancio Plus - SEPA)
         // ======================================
-        // Colori Consistenti
-         const colorAttuale = 'rgba(74, 105, 189, 0.7)'; // Blu secondario
-         const colorAttualeBorder = 'rgba(74, 105, 189, 1)';
-         const colorOttimizzato = 'rgba(76, 175, 80, 0.7)'; // Verde successo
-         const colorOttimizzatoBorder = 'rgba(76, 175, 80, 1)';
+        const colorAttuale = 'rgba(74, 105, 189, 0.7)';
+        const colorAttualeBorder = 'rgba(74, 105, 189, 1)';
+        const colorOttimizzato = 'rgba(76, 175, 80, 0.7)';
+        const colorOttimizzatoBorder = 'rgba(76, 175, 80, 1)';
 
-         const utileNettoData = {
-             labels: ['Attuale (2024)', 'Post Ottimizzazione'],
-             datasets: [{
-                 label: 'EBITDA (€)', data: [137277, 157382],
-                 backgroundColor: [colorAttuale, colorOttimizzato],
-                 borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
-             }]
-         };
-         const ebitdaMarginData = {
-              labels: ['Attuale (2024)', 'Post Ottimizzazione'],
-              datasets: [{
-                  label: 'EBITDA Margin (%)', data: [6.19, 6.99],
-                  backgroundColor: [colorAttuale, colorOttimizzato],
-                  borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
-              }]
-          };
-          const cccData = {
-               labels: ['Attuale (2024)', 'Post Ottimizzazione'],
-               datasets: [{
-                   label: 'Cash Flow Operativo (€)', data: [-84038, 50000],
-                   backgroundColor: [colorAttuale, colorOttimizzato],
-                   borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
-               }]
-           };
-           const dioData = {
-                labels: ['Attuale (2024)', 'Post Ottimizzazione'],
-                datasets: [{
-                    label: 'Liquidità (€)', data: [205347, 278866],
-                    backgroundColor: [colorAttuale, colorOttimizzato],
-                    borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
-                }]
-            };
+        const ebitdaData = {
+            labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+            datasets: [{
+                label: 'EBITDA (€)',
+                data: [859828, 914328],
+                backgroundColor: [colorAttuale, colorOttimizzato],
+                borderColor: [colorAttualeBorder, colorOttimizzatoBorder],
+                borderWidth: 1
+            }]
+        };
+
+        const ebitdaMarginData = {
+            labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+            datasets: [{
+                label: 'EBITDA Margin (%)',
+                data: [19.99, 21.25],
+                backgroundColor: [colorAttuale, colorOttimizzato],
+                borderColor: [colorAttualeBorder, colorOttimizzatoBorder],
+                borderWidth: 1
+            }]
+        };
+
+        const pfnEbitdaData = {
+            labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+            datasets: [{
+                label: 'PFN/EBITDA',
+                data: [0.35, 0.30],
+                backgroundColor: [colorAttuale, colorOttimizzato],
+                borderColor: [colorAttualeBorder, colorOttimizzatoBorder],
+                borderWidth: 1
+            }]
+        };
+
+        const leanusData = {
+            labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+            datasets: [{
+                label: 'Leanus Score',
+                data: [0.70, 1.40],
+                backgroundColor: [colorAttuale, colorOttimizzato],
+                borderColor: [colorAttualeBorder, colorOttimizzatoBorder],
+                borderWidth: 1
+            }]
+        };
 
         // ======================================
         // CHART OPTIONS
         // ======================================
         const barChartOptions = {
-             responsive: true, maintainAspectRatio: false, indexAxis: 'x',
-             scales: { y: { beginAtZero: true, ticks: {} }, x: { grid: { display: false }} },
-             plugins: { legend: { display: false }, title: { display: false },
-                 tooltip: {
-                     callbacks: {
-                         label: function(context) {
-                             let label = context.dataset.label || ''; if (label) label += ': '; let value = context.parsed.y;
-                             if (context.dataset.label.includes('(gg)')) { label += formatNumber(value, 0) + ' gg'; }
-                             else if (context.dataset.label.includes('(%)')) { label += formatPercentage(value); }
-                             else { label += formatCurrency(value, 0); }
-                             return label;
-                         }
-                     }
-                 }
-             },
-             animation: { duration: 400 }
-         };
-         const utileNettoOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, ticks: { callback: function(v) { return formatCurrency(v, 0); } } } } };
-         const ebitdaMarginOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, suggestedMin: 0, ticks: { callback: function(v) { return formatPercentage(v); } } } } };
-         const cccOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, title: {display: true, text: 'Euro'}, ticks: { callback: function(v) { return formatCurrency(v, 0); } } } } };
-         const dioOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, title: {display: true, text: 'Euro'}, ticks: { callback: function(v) { return formatCurrency(v, 0); } } } } };
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'x',
+            scales: {
+                y: { beginAtZero: true, ticks: {} },
+                x: { grid: { display: false }}
+            },
+            plugins: {
+                legend: { display: false },
+                title: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) label += ': ';
+                            let value = context.parsed.y;
+                            if (context.dataset.label.includes('(%)')) {
+                                label += formatPercentage(value);
+                            } else if (context.dataset.label.includes('Score') || context.dataset.label.includes('PFN/EBITDA')) {
+                                label += formatNumber(value, 2);
+                            } else {
+                                label += formatCurrency(value, 0);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            animation: { duration: 400 }
+        };
+
+        const ebitdaOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, ticks: { callback: function(v) { return formatCurrency(v, 0); } } } } };
+        const ebitdaMarginOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, ticks: { callback: function(v) { return formatPercentage(v); } } } } };
+        const pfnEbitdaOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, ticks: { callback: function(v) { return formatNumber(v, 2); } } } } };
+        const leanusOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, ticks: { callback: function(v) { return formatNumber(v, 2); } } } } };
 
         // ======================================
         // CHART INITIALIZATION & OTHER SCRIPTS
         // ======================================
         document.addEventListener('DOMContentLoaded', function() {
-             console.log("Initializing scripts for Bilancio Plus Sardiniae Ars (Embedded)...");
-             // --- Initialize Charts ---
-             try { initChart('utileNettoChart', 'bar', utileNettoData, utileNettoOptions); } catch(e) { console.error("Errore init utileNettoChart:", e); }
-             try { initChart('ebitdaMarginChart', 'bar', ebitdaMarginData, ebitdaMarginOptions); } catch(e) { console.error("Errore init ebitdaMarginChart:", e); }
-             try { initChart('cccChart', 'bar', cccData, cccOptions); } catch(e) { console.error("Errore init cccChart:", e); }
-             try { initChart('dioChart', 'bar', dioData, dioOptions); } catch(e) { console.error("Errore init dioChart:", e); }
+            console.log("Initializing scripts for Bilancio Plus SEPA...");
+            
+            // --- Initialize Charts ---
+            try { initChart('ebitdaChart', 'bar', ebitdaData, ebitdaOptions); } catch(e) { console.error("Errore init ebitdaChart:", e); }
+            try { initChart('ebitdaMarginChart', 'bar', ebitdaMarginData, ebitdaMarginOptions); } catch(e) { console.error("Errore init ebitdaMarginChart:", e); }
+            try { initChart('pfnEbitdaChart', 'bar', pfnEbitdaData, pfnEbitdaOptions); } catch(e) { console.error("Errore init pfnEbitdaChart:", e); }
+            try { initChart('leanusChart', 'bar', leanusData, leanusOptions); } catch(e) { console.error("Errore init leanusChart:", e); }
 
-             // --- Other Page Scripts ---
-             document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
-             const footerYear = document.getElementById('currentYearFooterReport');
-             if (footerYear) footerYear.textContent = new Date().getFullYear();
+            // --- Other Page Scripts ---
+            document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+            const footerYear = document.getElementById('currentYearFooter');
+            if (footerYear) footerYear.textContent = new Date().getFullYear();
 
-             const irpScoreValue = 96.79; // Sardiniae Ars IRP (Valore noto)
-             const irpHeaderBadge = document.getElementById('irp-header-badge');
-             if(irpHeaderBadge) {
-                 let badgeClass = 'bg-warning text-dark';
-                 if (irpScoreValue >= 71) badgeClass = 'bg-success'; else if (irpScoreValue < 51) badgeClass = 'bg-danger';
-                 irpHeaderBadge.className = `badge ${badgeClass} me-3`;
-                 irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
-             } else { console.warn("Elemento 'irp-header-badge' non trovato.") }
+            const irpScoreValue = 55.87; // SEPA IRP
+            const irpHeaderBadge = document.getElementById('irp-header-badge');
+            if(irpHeaderBadge) {
+                let badgeClass = 'bg-warning text-dark';
+                if (irpScoreValue >= 71) badgeClass = 'bg-success';
+                else if (irpScoreValue < 51) badgeClass = 'bg-danger';
+                irpHeaderBadge.className = `badge ${badgeClass} me-3`;
+                irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
+            }
 
-             if (typeof window.logout !== 'function') { window.logout = function() { console.log("Logout placeholder"); } }
-             if (typeof window.printDocument !== 'function') { window.printDocument = function() { window.print(); } }
-             console.log("All scripts initialization attempt complete (Embedded).");
-         });
+            if (typeof window.logout !== 'function') { window.logout = function() { console.log("Logout placeholder"); } }
+            if (typeof window.printDocument !== 'function') { window.printDocument = function() { window.print(); } }
+            
+            console.log("All scripts initialization complete for SEPA.");
+        });
     </script>
-     <!-- Script ChatNode -->
-     <scan-chat data-bot-id="d66c5a5b-02b0-4cdc-bf13-7dce7246429f"></scan-chat>
-     <script src="../js/bundle.js"></script>
+    <!-- Script ChatNode -->
+    <scan-chat data-bot-id="d66c5a5b-02b0-4cdc-bf13-7dce7246429f"></scan-chat>
+    <script src="../js/bundle.js"></script>
 
-    <scan-chat data-bot-id="aa6ba51a-dad9-41aa-ab1d-468e220feb57"></scan-chat>
-    <script src="./js/bundle.js"></script>
 </body>
 </html>
